@@ -69,15 +69,15 @@ In the old API's .NET did not change the first letter of a parametner, .NET Core
 
 ```csharp
 services.AddMvc(option => option.EnableEndpointRouting = false)
-                .AddNewtonsoftJson(o =>
-                {
-                    if (o.SerializerSettings.ContractResolver != null)
-                    {
-                        var castedResolver = o.SerializerSettings.ContractResolver
-                            as DefaultContractResolver;
-                        castedResolver.NamingStrategy = null;
-                    }
-                });
+    .AddNewtonsoftJson(o =>
+    {
+        if (o.SerializerSettings.ContractResolver != null)
+        {
+            var castedResolver = o.SerializerSettings.ContractResolver
+                as DefaultContractResolver;
+            castedResolver.NamingStrategy = null;
+        }
+    });
 ```
 
 That way it will simply take the property names as they are defined on our class.
@@ -105,8 +105,8 @@ ASP.NET Core supports this via output formatters. An output format deals with ou
 
 ```csharp
 services.AddMvc(option => option.EnableEndpointRouting = false)
-                .AddMvcOptions(o => o.OutputFormatters.Add(
-                    new XmlDataContractSerializerOutputFormatter()));
+    .AddMvcOptions(o => o.OutputFormatters.Add(
+        new XmlDataContractSerializerOutputFormatter()));
 ```
 
 ## Manipulating Resources
@@ -117,3 +117,27 @@ Creating, updating and deleting resources and Validating Input.
 
 There are systems where the consumer is responsible for choosing the ID, so it is a valid use case, and in those cases it will lead to the PointOfInterestDto and PointOfInterestForCreationDto to contain the exact same fields. But even in those cases it is still better to keep these separate, it leads to a model that's more in line with API functionality making change or refactoring afterwards easier and when validation comes into play we might want validation on input but that is not necessarily the same validation, if at all, that is needed for output. So it is better to create a separate DTO for creating, for updating and for returning resources.
 
+## Validation
+
+For validation we use some keywords on our model DTO, like Required, maxlength.
+
+```csharp
+[Required(ErrorMessage = "You should provide a name value")]
+[MaxLength(50)]
+public string Name { get; set; }
+
+[MaxLength(200)]
+public string Description { get; set; }
+```
+
+If there is no native validation for a rule we want to apply fror a parameter we can create it ourself. For example if the Name and Description of a Point of Interest is the same.
+NOTE: this rule is applied on the controller and not on the DTO.
+
+```csharp
+if (pointsOfInterest.Description == pointsOfInterest.Name)
+{
+    ModelState.AddModelError("Description", "The provided description should be different from the name.");
+}
+```
+
+The problem with this approach is that annotations mix in rules with models and that is not really good separtion of concerns and having to write validation rules in two different places, the model and the controller, for the same model does not feel right either, but this is the default approach used by .NET and .NET Core. However if we are building more complex applications it might be a good idea to check out something like FluentValidation, which offers a fluent interface to build validation rules for our objects.
