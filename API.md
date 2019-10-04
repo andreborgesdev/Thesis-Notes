@@ -11,6 +11,8 @@ ASP.NET Core has the Web API (HTTP Services) and MVC (client-facing web applicat
 - Loose coupling, separation of concerns: testability, reuse
 - It is not the full application architecture. In a typical n-tier architecture (Presentation layer, Business layer and Data access layer), more often than not with a service layer in between, MVC is used in the presentation layer. Hence, the implementing user interface part of the definition.
 
+![MVC Model](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/MVC.png?raw=true)
+
 ## ASP.NET Core 2
 
 Modularity comes with a set of potential issues
@@ -23,4 +25,9 @@ ASP.NET Core 1 applications:
 ASP.NET Core 2 Introduced two new conecpts:
 
 - Metapackage - Microsoft.AspNetCore.All metapackage is referenced by default for new ASP.NET Core 2 applications and it includes all supported ASP.NET Core packages, all supported Entity Framework Core Packages and Internal and 3rd-party dependencies used by ASP.NET Core and Entity Framework Core. It adds reference to a list of packages.
-- Runtime Store - Is a location on disk containing these (and other) packages which gives us a Faster deployment, lower disk space use and improved startup performance. But it comes with a trade-off, important to know is that when using this approach and publishing the app, the required assemblies are no longer copied to your application folder, whereas on the ASP.NET Core 1 they were. That means that to use this approach, we will have to install the runtime and thus the runtime store on each machine we want to publish to ASP.NET
+- Runtime Store - Is a location on disk containing these (and other) packages which gives us a Faster deployment, lower disk space use and improved startup performance. But it comes with a trade-off, important to know is that when using this approach and publishing the app, the required assemblies are no longer copied to your application folder, whereas on the ASP.NET Core 1 they were. That means that to use this approach, we will have to install the runtime and thus the runtime store on each machine we want to publish to ASP.NET.
+
+ There is two types of Runtime Store:
+
+- Self-contained - It's the default for ASP.NET Core 1.x and we do not need to install the runtime on the machine we're publishing the application into.
+- Framework dependent - It's the default for ASP.NET Core 2.0 and the correct version of the runtime must be installed on the machine we're publishing to. Fortunately this is optional and we can still add the packages we need instead of metapackages.

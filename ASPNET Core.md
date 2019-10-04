@@ -10,7 +10,7 @@ Rethought from the ground up =/= from ASP.NET 4
 
 Granular set of NuGet packages
 
-Smallar application surface area:
+Smaller application surface area:
 
 - Tighter security
 - Reduced servicing
