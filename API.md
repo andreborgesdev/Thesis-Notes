@@ -141,3 +141,16 @@ if (pointsOfInterest.Description == pointsOfInterest.Name)
 ```
 
 The problem with this approach is that annotations mix in rules with models and that is not really good separtion of concerns and having to write validation rules in two different places, the model and the controller, for the same model does not feel right either, but this is the default approach used by .NET and .NET Core. However if we are building more complex applications it might be a good idea to check out something like FluentValidation, which offers a fluent interface to build validation rules for our objects.
+
+## Updating a Resource
+
+As seen previously it is a good practice to use different models for create, update and read, even if they contain the same properties.
+
+There is two ways of updating a resource
+
+- Full update - ___PUT___ - According to the HTTP standard, PUT should fully update the resource. That means that the consumer of the API must provide values for all fields for all fields of the resource, save for the ID, as that one is already coming for the URI. If a consumer does not provide a value for a field, that field should be put to its default value, which conveniently, it will have an inputted object. We must, thus, update all fields. Lastly, we return a tool for NoContent, that means that the request completed successfuly, but there is nothing to return. We can also return a 200 Okay containing the updated resource, but tipically for updates, we would return NoContent as the consumer already has all the information, after all, it is the consumer who send the content that had to be changed. The fields that are not provided by the user will have the default value of null. This is completely correct according to the HTTP standard, but it might not be ideal for consumers of the API.
+- Partial update - ___PATCH___ - The body of a PATCH request contains only the fields that we want to update and, if we go further it also needs to contain an opertaion that has to happen, for example, a PATCH request that copies the value of one property to another property. There is a standard format for this. The standard is named JSON Patch (RFC 6902) and it describes a document structure for expressing a sequence of operations to apply to a JSON document. A JSON Patch document is essentialy a list of operations, like, at, remove, replace, etc. that have to be applied to the resource allowing for partial updates.
+
+![PATCH Request](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/PATCH_Request.png?raw=true)
+
+To validate the JsonPatchDocument we need to use the method TryValidateModel in our now patched instance since ModelState can not check it. This triggers validation of this model and any errors will also end up in the model state. For example to check removes on a parameter that can not be null.
