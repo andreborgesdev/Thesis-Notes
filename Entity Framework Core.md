@@ -102,3 +102,54 @@ There is still a risk because environment variables are typically unencrypted ke
 Is the principle of providing the database with data to start with. It is often used to provide master data.
 
 AddRange makes the entities tracked by the context but they are not inserted yet, or that we must use SaveChanges because that will effectively execute the statements on our database. On the configure method of the Startup file we must create a context for our entity and make a EnsureSeedDataForContext.
+
+# Entity Framework Core in our Controllers
+
+## Repository Pattern
+
+It's an abstraction that reduces complexity and aims to make the code, safe for the repository implementation, peristence ignorant. This peristence ignorant might require some additional clarification, sometimes it is said that through a repository you can switch out the persistence technology when needed, and while that is, strictly speaking true, that is not really the purpose of the repository pattern. For the consumers of the repository, it is of no interest what goes on in the implementation. Rather than switching out one persistence technology for another for the complete repository, it allows us to choose the technology that is the best fit for a specific method on the repository. Thus, persistence ignorant.
+
+We could just access the DBcontext (No Repository Pattern) from our controllers directly, but we can easily run into problems like that.
+
+![Repository Pattern](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Repository_Pattern.png?raw=true)
+
+ICityInfoRepository Interace is the contract that our repository implementation will have to adhere to. It is important to only include the methods we will actually use in our repository contract.
+
+For a GET there are two options, either return an IEnumerable or an IQueryable and with the latest the consumer of the repository can keep on building on that IQueryable, for example he can add an OrderBy or a Where clause, etc. possibly before the query is executed, but that way we are also leaking persistence-related logic out of the repository, which seems to violate the purpose of the repository pattern, on the other hand, if we are building an API that allows a huge set of data-shaping possibilities, all requiring different queries writing tens to hundreds of methods in a repository becomes cumbersome, if not almost impossible.
+
+After we finish the contract have to create a class called CityInfoRepository to implement this ICityInfoRepository interface. This is the place where we provide persistence logic. We might need the CityInfoContext to do that and only that, but it might as well be a mix. For some methods we could use Entity Framework, for others we could call a service and so on. That importance lies in the fact that for the consumer the implementation is of no interest whatsoever, the consumer is ignorant of how the ICityInfoRepository contract is implemented.
+This is also the place where we can provide additional persistence related logic, like ordering the cities.
+
+The ToList method is very important because this ensures that the query is executed at that specific time. It means iteration has to happen and for that to happen the query must be executed on our database.
+
+After we implement our repository we need to register the repository on the configureServices method of the Startup class. We have the 3 lifetime options to choose from but we will use the Scoped lifetime because it if the best fit so it is created once per request. To do that using the services.AddScoped<ICityInfoRepository, CityInfoRepository>(); If we wanted to provide a mock we should add it after the ICityInfoRepository.
+
+## Returning Data from the Repository when Requesting Resources
+
+First we have to inject the repository in the cities controller using the constructor injection. We are going to change all the code on the control to change it from static to actually return the data from the database.
+
+```csharp
+[HttpGet()]
+public IActionResult GetCities()
+{
+    //return Ok(CitiesDataStore.Current.Cities);
+    var cityEntities = _cityInfoRepository.GetCities();
+
+    var results = new List<CityWithoutPointsOfInterestDto>();
+
+    foreach (var cityEntity in cityEntities)
+    {
+        results.Add(new CityWithoutPointsOfInterestDto
+        {
+            Id = cityEntity.Id,
+            Description = cityEntity.Description,
+            Name = cityEntity.Name
+        });
+    }
+
+    return Ok(results);
+}
+```
+
+These cityEntities are what our repository and context work on, however they are not what the actions in our API should return. Those were kind of different set of modules, the DTOs. So we will need to map this list to a list of cityDTO. But in this case, since our CityDTO has the parameters of points of interest and our repository does not return them we need to create another DTO for CityWithoutPointsOfInterestDto. This is one reason why we should make the distinction between the entity model and the DTOs. Were we to return entity classes, would see an empty array. Then we iterate the cityEntities to store on the result new cities without points of interest.
+
