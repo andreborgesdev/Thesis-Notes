@@ -68,3 +68,37 @@ Then we have to create an initial snapshot, or migration of our database and sch
 - It is the file with the name we just provided to our migration - it cointains the code needed by the migration builder to build this version of the database, both Up (from current to new version) and Down (from this version to the previous version). If we look at Up we see two CreateTable statements and a CreateIndex statement. That means it is starting from no database at all and this migration contains the code to build the initial database. If we look at Down we see what should happen to end up with an empty database - two DropTable statements. If we migrations are added, new files like this will be created and by executing them in order our database can evolve together with our code. We do not need to generate the Add-Migration command to generate these files, we could have written them by hand, but it is not something we want to do to a big database.
 
 Next we have to ensure that the migration is effectively applied to our database and we will use a command for that, it's called "Update-Database" if we execute this, the migrations will be applied to our current database but we can also do this from code if on the constructor of the context we run Database.Migrate() instead of Database.EnsureCreated(). This will execute migrations, which, if there is no database, will create it. But if there is one it will throw an error because it will try to create a table that already exists so we have to delete the database and migrate it with the existing files from the snapshot. It is a better approach to start from the beggining with Database.Migrate(). After this, everytime we do Add-Migration and then we run the code with the Migrate on the constructor it will update the database with our code changes, for example, the addition of a parameter on an entity.
+
+## Safely Storing Sensitive Configuration Data
+
+We might want to store, for example, our database connection string on the appSettings. As long as we're working on our local machine in a development environment on our LocalDB instance we'll be ok. But once we are deploying to production we'll be providing a connection string to an actual SQL Server Instance. We're currently working with integrated security with the "trusted connection" part of the connection string but sometimes a connection string contains a username/password combination. We do not want to expose nor that info nor the name of our actual produtcion database.
+
+First, get rid of the hard-coded connection string by adding it to the appSettings file and since we have files for the 2 environments we can change it. During development we use the appSettings file and then we get the value via the configuration object in the Startup file. On the production environment we want to use envorionment variables. To use environment variables we have to add the method AddEnvironmentVariables() to the builder on the Startup constructor.
+
+![Environment Variables](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Environment_Variables_Connection_String.png?raw=true)
+
+After we create our environment variables for the production environment. So we have told our application to look into the environment variables for configuration information so what will happen is that if the environment variable with the same key is found in a certain environment, production in our case, it will override the value from other configuration sources as AddEnvironmentVariables was the last configuration source added to the build chain.
+
+Now we have 3 providers for the Connection String (2 appSettings for development and production and 1 Environment variable). With the Environment variable the connection string is not submitted to the source control.
+
+This works great for Visual Studio, however, those setting we set in the project properties, the environment variables, are actually added to a launchSettings.json file and this not something we deploy to a production server nor check into source control, by the way. So this is still not a good option so we should delete our connection string from there the VS launchSettings or Project Properties, it is the same.
+
+The way of storing our connection string that we want to use is on the Environment Variables of the system itself (System properties). We do not have to change any code for the code that we use for the VS Environment Variables to work on the system ones.
+
+![Environment Variables System](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Environment_Variables_Connection_String_System.png?raw=true)
+
+As environment variables, in our case, override all the other configuration sources this connection string will be used regardless of the environment we choose in Visual Studio.
+
+The general rule is
+
+- use appSettings for non-sensitive data
+- use the environment variables we set in our project properties only on our local machine and never submit them to source control, to the launchSettings file
+- once we roll out to the production server, set the environment variables as evironment variables from the system.
+
+There is still a risk because environment variables are typically unencrypted key/value pairs so if someone gains access to the machine or process he can read out that data. But this approach is already safer then using a text file.
+
+## Seeding the Database with Data
+
+Is the principle of providing the database with data to start with. It is often used to provide master data.
+
+AddRange makes the entities tracked by the context but they are not inserted yet, or that we must use SaveChanges because that will effectively execute the statements on our database. On the configure method of the Startup file we must create a context for our entity and make a EnsureSeedDataForContext.
