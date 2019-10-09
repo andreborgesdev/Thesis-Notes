@@ -153,3 +153,122 @@ public IActionResult GetCities()
 
 These cityEntities are what our repository and context work on, however they are not what the actions in our API should return. Those were kind of different set of modules, the DTOs. So we will need to map this list to a list of cityDTO. But in this case, since our CityDTO has the parameters of points of interest and our repository does not return them we need to create another DTO for CityWithoutPointsOfInterestDto. This is one reason why we should make the distinction between the entity model and the DTOs. Were we to return entity classes, would see an empty array. Then we iterate the cityEntities to store on the result new cities without points of interest.
 
+To check if a entity with a certain ID exists it is better to create a new method on the Repository and the respective signature on the interface because, for example, in the case of getting a point of interest if we receive an empty array we do not know if it is because the city does not exist or because there is no point of interest for that city.
+
+## AutoMapper
+
+Map between Entities and DTOs
+
+AutoMapper is designed for model projection scenarios to flatten complex object models to DTOs and other simples objects.
+
+The first thing to do is configure the mappings. We have to tell AutoMapper how we trip map between out entities and our DTOs, this configuration should be created once and instantiated at startup.
+
+It is convention based, it will map property names on the source object to the same property names on the destination object, and by default it will ignore no reference exceptions from source to target, i.e., if the property does not exist, it will be ignored. This may cause that we end up with having to provide our own property mappings but for most objects, this is suficient.
+
+The AutoMapper configuration is done like this:
+
+1. Add the main AutoMapper Package to your solution via NuGet.
+2. Add the AutoMapper Dependency Injection Package to your solution via NuGet.
+3. Create a new class for a mapping profile. (I made a class in the main solution directory called MappingProfile.cs and add the following code.) I'll use a User and UserDto object as an example.
+
+```csharp
+public class MappingProfile : Profile {
+    public MappingProfile() {
+        // Add as many of these lines as you need to map your objects
+        CreateMap<User, UserDto>();
+        CreateMap<UserDto, User>();
+    }
+}
+```
+
+4. Then add the AutoMapperConfiguration in the Startup.cs as shown below:
+
+```csharp
+public void ConfigureServices(IServiceCollection services) {
+    // .... Ignore code before this
+
+   // Auto Mapper Configurations
+    var mappingConfig = new MapperConfiguration(mc =>
+    {
+        mc.AddProfile(new MappingProfile());
+    });
+
+    IMapper mapper = mappingConfig.CreateMapper();
+    services.AddSingleton(mapper);
+
+    services.AddMvc();
+
+}
+```
+
+5. To invoke the mapped object in code, do something like the following:
+
+```csharp
+public class UserController : Controller {
+
+    // Create a field to store the mapper object
+    private readonly IMapper _mapper;
+
+    // Assign the object in the constructor for dependency injection
+    public UserController(IMapper mapper) {
+        _mapper = mapper;
+    }
+
+    public async Task<IActionResult> Edit(string id) {
+
+        // Instantiate source object
+        // (Get it from the database or whatever your code calls for)
+        var user = await _context.Users
+            .SingleOrDefaultAsync(u => u.Id == id);
+
+        // Instantiate the mapped data transfer object
+        // using the mapper you stored in the private field.
+        // The type of the source object is the first type argument
+        // and the type of the destination is the second.
+        // Pass the source object you just instantiated above
+        // as the argument to the _mapper.Map<>() method.
+        var model = _mapper.Map<UserDto>(user);
+
+        // .... Do whatever you want after that!
+    }
+}
+```
+
+## AutoMapper Creating a Resource
+
+To create resources we have to do additional mapping. This time on the CreateMap the source is the Model and the destination is the Entity.
+
+We need to add the point of interest, so that is an additional method we will need on our repository as we want to keep that persistence related code contained there. In ICityInfoRepository. Then we creat the method on the CityInfoRepository.
+
+```csharp
+public void AddPointOfInterestForCity(int cityId, PointOfInterest pointOfInterest)
+{
+    var city = GetCity(cityId, false);
+
+    city.PointsOfInterest.Add(pointOfInterest);
+}
+```
+
+That will make sure the foreign key is set to the cityId when persisting. Now, that statement does not effectively persist a point of interest yet. We have added it on the object context, i.e., the in memory representation of our objects, but not yet to the database. To do that, we must call SaveChanges on the context, so that is another method we will need on the Repository contract. We want to know if the Save went well.
+
+## AutoMapper Updating a Resource
+
+We have to add a new Map - CreateMap<Models.PointsOfInterestForUpdateDto, Entities.PointOfInterest>();
+
+We use the Map Overload. If we pass in the source object, i.e., the point of interest passed in as the first parameter and the destination object, i.e., our entity as the second parameter, AutoMapper will override the values in the destination object with those in the source object.
+
+_mapper.Map(pointOfInterest, pointOfInterestEntity);
+
+After this statement, the point of interest entity will have the values that were passed in through the point of interest parameter. As the destination object is an entity tracked by RDB context, it now has a modified state. So, once we call Save, the changes will effectively be persisted to the database.
+
+## AutoMapper Partially Updating a Resource
+
+AS it accepts a JSON Patch document the PATCH operation in on the DTO and not directly on the entity, as we should not expose entity implementation details to the outer facing layer. So we will have to find the entity first, and then map it to a DTO before applying the PATCH document.
+
+We have to validate because the validation has to happen on the DTO after the Patchdoc has been applied to see if it is still valid. From this moment on, the DTO we just created has the correctly patched properties and is valid. We now have to map that back into that entity.
+
+As we know from the previous Update, the changes are tracked, so once we save, the changes on the entity will be persisted.
+
+## AutoMapper Deleting a Resource
+
+Similar as Creating a Resource.
