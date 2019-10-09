@@ -27,6 +27,10 @@ The applications can run on the Full .NET Framework or .NET Core
 - Other: desktop, devices, phone
 - Implementation of .NET Standard (defines a common base that a platform should support)
 
+![Differences between ASP.NET CORE 1 and 2](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Differences_ASP.NET_CORE_1_&_2.png?raw=true)
+
+![Differences between ASP.NET CORE 1 and 2 - Releases](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Differences_ASP.NET_CORE_1_&_2_Releases.png?raw=true)
+
 # Programa
 
 ## Program.cs
