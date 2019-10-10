@@ -134,3 +134,18 @@ Different actions can happen to resources at the same URI. For example, getting 
 - OPTIONS - Represents a request for information about the communication options available on that URI. So in other words, OPTIONS will tell us whether or not we can GET the resource, POST it, DELETE it and so on. These OPTIONS are typically in the response headers and not in the body, so no response payload.
 
 ![HTTP Methods](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/HTTP_Methods.png?raw=true)
+
+## Outer Facing Model vs Entity
+
+Outer Facing Model != Business Model != Entity Model
+
+When we designed the outer facing contract, we learned that REST stops at that level. What lies underneath that outer facing contract is of no importance to REST. From that we already know that the entity model, in our case used by Entity Framework Core, as a means to represent database roles as objects, should be different from the outer facing model. In some application architectures there's a business layer in-between, which in turn is different from the outer facing model and the entity model. The outer facing model does only represents the resources that are sent over the wire in a specific format, but it also leads to possibilities. 
+
+Take an author, for example. We can see some pseudocode for that. An author is stored in our database with a DateOfBirth, but that DateOfBirth, well that might not be what we want to offer up to the consumers of the API. They might be better off with the age. Another example might be concatenation. Concatenating the FirstName and LastName from an entity into one name field in the resource representation, and sometimes data might come from different places. An author could have a field, say, Royalties, that comes from another API our API must interact with. That alone leads to issues when using entity classes for the outer facing contract, as they don't contain that field.
+
+![Outer Facing Model VS Entity Model](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Outer_Facing_Model_VS_Entity_Model.png?raw=true)
+
+Keeping these models separate leads to more robust, reliably evolvable code. Imagine having to change a database table, that would lead to a change of the Entity class. If we're using that same Entity class to directly expose data via the API, our clients might run into problems because they're not expecting an additional renamed or removed field. So when developing, it's fairly important to keep these separate.
+
+NOTE: Attributes can also be used in other classes, like our DTOs (not only Entities), and they're very useful for validation scenarios, but the point here is that we won't implement these on the AuthorDto class, because this one is only used for one purpose, returning data. So using validation attributes or data annotations used to validate input doesn't make sense on this AuthorDto class, which is only used for returning data to the consumer.
+

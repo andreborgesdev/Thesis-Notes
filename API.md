@@ -53,15 +53,22 @@ Provide information on
 - Whether or not the request worked out as expected
 - What is responsible for a failed request
 
+We're currently returning JSON result in our code, which sends back a 200 status code by default, but if we keep doing that for each and every request, the consumer of the API would assume this request worked out as expected, even if it went wrong. Remember that consumers of the API are typically non-human, all they can inspect is the status code. They can't read out and interpret error messages. In the example code we just wrote, trying to get an author that doesn't exist is a client mistake. That also means he can correct it and try the request again, and other times it's the server's responsibility, for example when the database is unavailable. The consumer of the API cannot correct this because the mistake isn't his. here's a lot of status codes, and an API doesn't necessarily have to support all of them.
+
 The 5 levels of Status Codes
 
 - Level 100 Status Codes are informational and were not part of the HTTP 1.0 standard. These are currently not used by API's
 - Level 200 (SUCCESS) mean the request went well. The most common ones are 200 for a successful GET request, 201 a successful requet that resulted in the creation of a new resource and 204 for no content
-- Level 300 are used for redirection. Most API's do not have need for this.
-- Level 400 (CLIENT ERROR) tells the consumer he did something wrong. 400 means Bad Request, the request that the consumer of the API sent to the server is wrong. 401 Unauthorized which means that no or invalid authentication details were provided. 403 Forbidden, means that the authentication succeeded but the authenticated user does not have access to the requested resource. 404 Not Found means that the request resource does not exist. 409 is used for conflicts
-- Level 500 (SERVER ERROR). Often only the 500 Internal Server Error is supported. It means that the server made a mistake, and the client can not do anything about it other than try again later.
+- Level 300 are used for redirection, to tell a search engine a page has permanently moved. Most API's do not have need for this.
+- Level 400 (CLIENT ERROR) tells the consumer he did something wrong. 400 means Bad Request, the request that the consumer of the API sent to the server is wrong. 401 Unauthorized which means that no or invalid authentication details were provided. 403 Forbidden, means that the authentication succeeded but the authenticated user does not have access to the requested resource. 404 Not Found means that the request resource does not exist. 405, Method not allowed. This happens when we try to send a request to a resource with an HTTP method that isn't allowed. For example we try to send a POST request to api/authors, when only GET is implemented on that resource. 406 means Not acceptable, and now we're diving into our presentation media types. For example a consumer might request the application/xml media type, while the API only supports application/json and it doesn't provide that as a default representation. 409 is used for conflicts means that there's a conflicted request versus the current state of the resource the request is sent to. This is often used when we're editing a version of a resource that has been renewed since we started editing it, but it's also used when creating a resource, or trying to create a resource that already exists. 415 means Unsupported media type, and that's the other way around from the 406 status codes. Sometimes we have to provide data to our API in the request body, when creating a resource for example, and that data also has a specific media type. If the API doesn't support this, a 415 status code is returned. And lastly, 422 stands for Unprocessable entity. It's part of the WebDAV HTTP Extension Standard. This one is typically used for semantic mistakes, and semantic mistakes, well, that's what we get when working with validation. If a validation rule fails, 422 is what's returned.
+- Level 500 (SERVER ERROR or SERVER MISTAKES). Often only the 500 Internal Server Error is supported. It means that the server made a mistake, and the client can not do anything about it other than try again later.
 
 app.UseStatusCodePages() if we want the status code to appear on the browser page instead of only on the developer tools
+
+Some mistakes do happen, and these mistakes are then categorized into two categories:
+
+- Error - Are defined as a consumer of the API, like a web app, passing invalid data to the API, and the API correctly rejecting that data. Examples include invalid credentials or incorrect parameters, in other words, these are level 400 status codes and are the result of a client passing incorrect or invalid data. Errors do not contribute to overall API availability.
+- Faults - Are defined as the API failing to correctly return a response to a valid request by a consumer. In other words, the API made a mistake, so these are level 500 status codes, and these faults, they do contribute to the overall API availability.
 
 ## Serializer Settings
 
@@ -156,3 +163,7 @@ There is two ways of updating a resource
 ![PATCH Request](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/PATCH_Request.png?raw=true)
 
 To validate the JsonPatchDocument we need to use the method TryValidateModel in our now patched instance since ModelState can not check it. This triggers validation of this model and any errors will also end up in the model state. For example to check removes on a parameter that can not be null.
+
+## AutoMapping Projection
+
+We need to ensure that FirstName and LastName are concatenated into the Name property, and we also need to calculate the age. This means we need projection. Projection transforms a source to a destination beyond flattening the object model. So we must specify this through a custom member mapping. To do that we call into ForMember, we pass it a function to get the destination, in other words the name, and then we tell AutoMapper how to create this Name property value. We want it to be mapped from the source's FirstName and LastName. So we call into MapFrom, and we pass in FirstName and LastName. We need an additional ForMember statement for the age, but let's import the helpers namespace first so we can use that GetCurrentAgeExtension method on DateTime offset, and let's add the projection. So we call into ForMember again and pass in a function for the destination object, and one that states that we have to get the age by calling into GetCurrentAge on the source's DateOfBirth property, aand with this we've told AutoMapper to create a mapping from the Author entity to the DTO.
