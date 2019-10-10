@@ -111,5 +111,9 @@ Routing matches a request URI to an action on a controller. So once we send an H
 
 - Convetion-based - we have to configure these conventions. We can do that by passing in these routing conventions to the UseMvc extension method. This example would map the URI values index to an index method on a controller named values controller. As you can guess from that example, this is a typical sample of something that's used when building a web application with views that return HTML. The MVC Middleware can be used for that, but for APIs the ASP. NET Core team recommends not using convention-based routing, but attribute- based routing instead.
 
+![Routing Guidelines 1](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Routing_Guidelines.png?raw=true)
 
 - Attribute-based - as the name implies, allows us to use attributes at controller and action level. We provide these with a URI template, and through that template and the attribute itself, a request is matched to a specific action on a controller. For this we use a variety of attributes, depending on the HTTP method we want to match.
+
+![Routing Guidelines 2](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Routing_Guidelines_2.png?raw=true)
+
