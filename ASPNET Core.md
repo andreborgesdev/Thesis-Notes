@@ -1,6 +1,6 @@
 # ASP.NET Core
 
-Framework for building modern internet connectec applications
+Framework for building modern cloud-based internet connected applications
 
 Open-source
 
@@ -111,3 +111,7 @@ The ASP.NET request pipeline consists of a sequence of request delegates called 
 Environment =/= Type of build
 
 With the native service IHostingEnvironment we can make operations on the everionment we are currently in or in different ones.
+
+## Microsoft.AspNetCore.All
+
+Microsoft.AspNetCore.All. That's what's called a metapackage reference. By adding this reference, we're actually adding references to all the dependencies you can see when we scroll down a bit. This is an ASP. NET Core 2-only feature. Now why would we do this? Well, if you've worked with ASP. NET Core before, you know that instead of using one big monolith assembly like System. web in the old ASP. NET, ASP. NET Core instead shows a more modular, granular approach. It's made up of a large set of small packages containing specific pieces of functionality, but that comes with its own set of issues. It's not always easy to find out in which package to the functionality you need can be found. Moreover, keeping an eye on using the correct versions of these assemblies can become quite cumbersome, but that's the way it is for ASP. NET Core 1. x applications. So for ASP. NET Core 2, this was solved with the Microsoft. AspNetCore. All metapackage. That metapackage includes all supported packages by the ASP. NET Core Team, all supported packages by the Entity Framework Core Team, and internal and third-party dependencies used by ASP. NET Core and Entity Framework Core. So this metapackage makes life a bit easier. However, it comes with a potential drawback. It requires you to install the. NET Core SDK on the server you're deploying to. That avoids having to deploy them together with the application. That's it. This is completely optional. If you don't like the metapackage reference, you can also manually add references to each specific package you want to use just as in ASP. NET Core 1.
