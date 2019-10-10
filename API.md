@@ -63,12 +63,18 @@ The 5 levels of Status Codes
 - Level 400 (CLIENT ERROR) tells the consumer he did something wrong. 400 means Bad Request, the request that the consumer of the API sent to the server is wrong. 401 Unauthorized which means that no or invalid authentication details were provided. 403 Forbidden, means that the authentication succeeded but the authenticated user does not have access to the requested resource. 404 Not Found means that the request resource does not exist. 405, Method not allowed. This happens when we try to send a request to a resource with an HTTP method that isn't allowed. For example we try to send a POST request to api/authors, when only GET is implemented on that resource. 406 means Not acceptable, and now we're diving into our presentation media types. For example a consumer might request the application/xml media type, while the API only supports application/json and it doesn't provide that as a default representation. 409 is used for conflicts means that there's a conflicted request versus the current state of the resource the request is sent to. This is often used when we're editing a version of a resource that has been renewed since we started editing it, but it's also used when creating a resource, or trying to create a resource that already exists. 415 means Unsupported media type, and that's the other way around from the 406 status codes. Sometimes we have to provide data to our API in the request body, when creating a resource for example, and that data also has a specific media type. If the API doesn't support this, a 415 status code is returned. And lastly, 422 stands for Unprocessable entity. It's part of the WebDAV HTTP Extension Standard. This one is typically used for semantic mistakes, and semantic mistakes, well, that's what we get when working with validation. If a validation rule fails, 422 is what's returned.
 - Level 500 (SERVER ERROR or SERVER MISTAKES). Often only the 500 Internal Server Error is supported. It means that the server made a mistake, and the client can not do anything about it other than try again later.
 
+![Status Codes](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Status_Codes.png?raw=true)
+
+![Status Codes 2](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Status_Codes_2.png?raw=true)
+
 app.UseStatusCodePages() if we want the status code to appear on the browser page instead of only on the developer tools
 
 Some mistakes do happen, and these mistakes are then categorized into two categories:
 
 - Error - Are defined as a consumer of the API, like a web app, passing invalid data to the API, and the API correctly rejecting that data. Examples include invalid credentials or incorrect parameters, in other words, these are level 400 status codes and are the result of a client passing incorrect or invalid data. Errors do not contribute to overall API availability.
 - Faults - Are defined as the API failing to correctly return a response to a valid request by a consumer. In other words, the API made a mistake, so these are level 500 status codes, and these faults, they do contribute to the overall API availability.
+
+For these Not found checks is get the author and do a null check if we need the entity afterwards, and if we don't need the entity afterwards, I tend to use an exists check, like AuthorExists. Checks like these may mean additional code, even additional round trips to an underlying database, but even then these checks are necessary when building a RESTful API,
 
 ## Serializer Settings
 
@@ -97,7 +103,9 @@ We might need this or not. For most new applications the default lowercase lette
 
 ## Formatters and Content Negotiation
 
-Selecting the best representation for a given response when there are multiple representation available.
+When we think about a RESTful API these days, we often think of JSON. JSON has nothing to do with REST per se, it just happens to be the format of the resource representation, and that implies that a RESTful API can also work with other representation formats, like XML, or a proprietary format. So that also means that we have to be able to let our API know what format we want to get back, and that brings us to one of the key concepts when working with HTTP requests and responses:
+
+- Content Negotiation - Selecting the best representation for a given response when there are multiple representation available. If you're only building an API for a specific client, it might be okay to always get back representations in JSON format, but if we're building an API for consumption by multiple clients, some of which we have no control over, chances are that not all of these clients can easily consume JSON representations as a response. Some might be better off with XML or another format. That's what the Accept header of the HTTP request message is for. An API consumer should pass in the requested media type like application/JSON or application/xml through this header. For example, if an Accept header has a value of application/json, the consumer states that if our API supports the requested format, it should return that format. If it has a value of application/xml, it should return an XML representation, and so on.
 
 Media type is passed via the Accept header of the request
 
