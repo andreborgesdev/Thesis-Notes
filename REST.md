@@ -113,7 +113,24 @@ Routing matches a request URI to an action on a controller. So once we send an H
 
 ![Routing Guidelines 1](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Routing_Guidelines.png?raw=true)
 
-- Attribute-based - as the name implies, allows us to use attributes at controller and action level. We provide these with a URI template, and through that template and the attribute itself, a request is matched to a specific action on a controller. For this we use a variety of attributes, depending on the HTTP method we want to match.
+- Attribute-based - as the name implies, allows us to use attributes at controller and action level. We provide these with a URI template, and through that template and the attribute itself, a request is matched to a specific action on a controller. For this we use a variety of attributes, depending on the HTTP method we want to match. We should not dinamically put the Route of the Controller as the controller name, because if we were to have a refactoring of our codes, and rename the controller class to URI, to our authors resource, would automatically change. For APIs this in not an advantage, resource URIs should remain the same, and if we were to refactor this controller so it has another name, all our resources URIs would change. The name of the underlying class is of no importance to the consumer, so that is something we want to avoid.
 
 ![Routing Guidelines 2](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Routing_Guidelines_2.png?raw=true)
 
+## Interacting with Resources Through HTTP Methods
+
+Different actions can happen to resources at the same URI. For example, getting an author and deleting an author are interactions with the same resource URI. It's the method that defines the action that will happen, and depending on the method, we'll potentially need to send or get a payload. It's important to follow this standard so other components of our application can rely on this being implemented correctly.
+
+- GET - Reading Resources - There is no request payload, but the response payload contains either a list of author representations, or a single author.
+
+- POST - Creating a resource - Payload we pass in is a representation of the resource we're going to create, an author in our example, and the response payload then contains the newly created author resource.
+
+- PUT or PATCH - Ppdating resources - two options are available. The first one is PUT, which should be used for full updates. A PUT request to api/authors/authorId would update the author with that Id. The request payload is a representation of the resource we want to update, including all fields, and if a field is missing, it should be put to its default value. The response payload can be that updated author, or it can be empty, but you don't always want to fully update your resource, in fact, more often than not, you'll need partial updates to update only one or two fields instead of all of them. And that's what the PATCH method is for. The URI is the same as for PUT. The request payload is somewhat special here, it's a JsonPatchDocument, essentially a set of changes that should be executed on that resource. And just as with PUT, the response payload can be that updated author, or it can be empty.
+
+- DELETE - Delete a resource - This time, both requests and response payloads are empty.
+
+- HEAD - Is identical to GET with the notable difference that the API shouldn't return a response body, so no response payload. It can be used to obtain information on the resource like testing it for validity, for example, to test if a resource exists.
+
+- OPTIONS - Represents a request for information about the communication options available on that URI. So in other words, OPTIONS will tell us whether or not we can GET the resource, POST it, DELETE it and so on. These OPTIONS are typically in the response headers and not in the body, so no response payload.
+
+![HTTP Methods](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/HTTP_Methods.png?raw=true)
