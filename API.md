@@ -6,7 +6,7 @@ ASP.NET Core has the Web API (HTTP Services) and MVC (client-facing web applicat
 
 - Model - handles the logic for the application data. A model in this sense can contain code to retrieve or store data at that level. In some implementations, often when the MVC pattern is only used at the top level of the architecture, the model doesn't contain any logic at all. It's another component of the application that handles this.
 - View - Represents the parts of the application that handle the display of data. This might be HTML, for example.
-- Control - Handles the interaction between the view and the model, including handling user input.
+- Control - Handles the interaction between the view and the model, including handling user input. All controller classes must inherit Controller from Microsoft.AspNetCore.Mvc;
 - It is an architectural software pattern for implementing user interfaces
 - Loose coupling, separation of concerns: testability, reuse
 - It is not the full application architecture. In a typical n-tier architecture (Presentation layer, Business layer and Data access layer), more often than not with a service layer in between, MVC is used in the presentation layer. Hence, the implementing user interface part of the definition. An API can also be regarded as a user interface; it's the interface to the consumer of the API.
