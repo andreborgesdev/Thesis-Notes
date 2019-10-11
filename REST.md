@@ -333,3 +333,42 @@ public IActionResult GetAuthorCollection([ModelBinder(BinderType = typeof(ArrayM
 ```
 
 ## Handling POST to a Single Resource
+
+We've always posted to collection resources up until now, one author to the author's resource, but what about posting to a single resource instead of to a collection resource? Posting to a URI like this can never result in a successful request. It should either return a 404 Not Found if the author doesn't exist, or a 409 conflict if the author already exists. Let's imagine we'd allow posting to a single resource URI that contains an Id of an nonexisting author. While post is used for creating resources, the Id part of the URI signifies a mistake. It's the server that's responsible for creating the resource URI and not the consumer of the API. If we allow the consumer to generate the URI, a post like this would have to be idempotent, and posts isn't idempotent, we cannot rely on the fact that multiple post requests will result in the same outcome. So if treating post as idempotent can be avoided, it should. In other words, a 404 is warranted. Say we send a request like this to an existing URI, we'd expect a 409 conflict as we're trying to create your resource that already exists. Let's try this, and we also get back a 404 Not Found. It's still the same type of URI not linked to a route template, so this makes sense, but it's not correct. It's a matter adhering to the HTTP standard. Most APIs would not bother with adding an additional action just to return a correct HTTP StatusCode.
+
+ere we're going to add a new action, BlockAuthorCreation. We'll again use the HttpPost attribute, this time adding Id to the route template. We then accept that Id in the parameter list. We don't have to bother with accepting a specific type of parameter to serialize the request body to. We're not going to use it to effectively add an author as that's not allowed, we're only going to return the correct StatusCodes. We use this Id to check if an author with that Id exists. If it does, we should return a 409 conflict. There isn't a convenient helper method for that like OK and not found, but we can use the StatusCodeResult class for that. StatusCodeResult is an action result that results in a response without a body, but with a specific StatusCode. So we new that up, and pass in Satus409Conflict from the StatusCode enumeration. If the author doesn't exist, we return not found.
+
+```csharp
+[HttpPost("{id}")]
+public IActionResult BlockAuthorCreation(Guid id)
+{
+    if (_libraryRepository.AuthorExists(id))
+    {
+        return new StatusCodeResult(StatusCodes.Status409Conflict);
+    }
+
+    return NotFound();
+}
+```
+
+We've been working with post in the last few demos, and we've used a content-type header to signify the media type of the request body. Let's open a post request again, and let's look at those headers, here's that content-type header. What would happen if we didn't provide a content-type header. Let's give that a try, let me uncheck that, and let's send. We get back 415 Unsupported Media Type. We didn't pass in the media type, so our API doesn't know how to handle this. In other words, we always need to provide a content-type header when providing a request body that's in line with the self-descriptive message constraint. But what if you want to support other types of input like XML, especially when you're working on an API that integrates between different systems, this can be a requirement.
+
+## Supporting Additional Content-type Values and Input Formatters
+
+ We added an additional output formatter in the previous module by manipulating the output formatters collection. There's another collection InputFormatters, which as the name implies, allows us to add a new input formatter. Let's add one for XML. What we're looking for is the XmlDataContractSerializerInputFormatter. In case you're wondering why we're using the XMLDataContractSerializer versions of the formatters, well, that's because this formatter supports types like the dateTime offset value we have for dateOfBirth. The XmlSerializer requires that the type be designed in a specific way in order to serialize completely. Most types in. NET were not designed with the XmlSerializer in mind, so that's why it's preferable to use the dataContractSerializer versions of it.
+
+```csharp
+services.AddMvc(setupAction => 
+{
+    setupAction.ReturnHttpNotAcceptable = true;
+    setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+    setupAction.InputFormatters.Add(new XmlDataContractSerializerInputFormatter());
+});
+```
+
+## Deleting a Resource
+
+There's no response body after the successful delete to resources gone, so we return a 204 No Content. This signifies that the request was successful, but doesn't have a response body.
+
+Delete is obviously unsafe, as it changes the resource, in this case it deletes it. It's also idempotent, sending the same delete request over and over again will not change the resources any more than it did with the first request the first time it was deleted.
+
