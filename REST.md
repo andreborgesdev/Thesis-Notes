@@ -184,10 +184,152 @@ We should create different DTOs for different operations.
 
 Mind you there are system where the properties on the class used for output are exactly the same as those on the class used for input, but even in those cases, I'd suggest to keep these separate. It leads to a model that's more in line with the API functionality, make change already factoring afterwards much easier, and when validation comes into play, you typically want validation on input, but not necessarily on output. So I suggest to use a separate Dto for creating, updating, and returning resources.
 
-he first thing we need to check is if the input provided in the request body was correctly serialized to AuthorForCreationDto. If that isn't the case, the author value will be null, that means the client made a mistake, so we return a 400 BadRequest. If that checks out, we can map the AuthorForCreationDto to an author entity, and add it to the database finder repository. So we'll have to create a new mapping first.
+The first thing we need to check is if the input provided in the request body was correctly serialized to AuthorForCreationDto. If that isn't the case, the author value will be null, that means the client made a mistake, so we return a 400 BadRequest. If that checks out, we can map the AuthorForCreationDto to an author entity, and add it to the database finder repository. So we'll have to create a new mapping first.
 
 This is the first time we are adding an item to the database, so this might need some additional explanation. At this moment, the entity hasn't been added to the database yet, it's been added to the DbContext, which represents a session with the database. To persist our changes, we must call save on the repository, and if that's save fails, we should return a 500 internal server error. This save methods returns a Boolean, true or false, and we should see the repository has a bit of a black box. In essence, the controller doesn't know about the implementation, so it might contain exception handling code, it might not, it all depends on the provided implementation. So, I do like to treat it as a black box, but we do know what we want to return, a 500 internal server error with a generic error message. We only return a generic error message, because the consumer of the API really doesn't need to know what exactly went wrong, it just needs to know that it's not its responsibility. Our generic exception handler will not catch this, as save doesn't throw an exception, but we can use the StatusCode method for that, passing in the StatusCode. The StatusCode is 500, and we provide a generic message. But we already configured the exception handler middleware in the previous module to return a 500 internal server error with a generic message if an unhandled exception occurs. So another option is to throw an exception from the controller, and let the middleware handle it. Now is this a good approach or a bad approach? Well it's, it kind of depends. Throwing exceptions is expensive, it's a performance hit, so that would lead us to returning the StatusCode from the controller as a best practice, but on the other hand, that also means that we'll have code to return 500 internal server errors in different places, on the global level and in the controller itself. At this moment, that's not too much of a problem, but once we start implementing logging, that would also mean we'd want to provide logging code on each StatusCode 500 we return. I've seen both approaches, and there's something to be said for both. In this case, we're going to have the middleware handle all our responses that warrant a 500 internal server error. That'll come in nicely when we need to implement logging for these types of StatusCodes later on. We'll only have to write that code in one place, being at the configuration of the exception handler middleware.
 
 In case of a successful post, we should return a 201 created response. For that, we can use the CreatedAtRoute method. This method allows us to return a response with the location header, and that location header, that will then contain the URI where the newly created author can be found. So the first thing we need to pass into this method is the route name that's going to be used for generating the URI. it should refer to the action to get a single author, that's our GetAuthor action. So, let's give this a name we can refer to, say GetAuthor, there we go. And we pass in GetAuthor as the first parameter of our CreatedAtRoute method. Now to get an author, we need the author ID. We need to pass that in as a route value, so the correct URI can be generated containing that ID. To do that, we pass in an anonymous type, and we give that anonymous type one field, ID, which is the name used in our route template, and we give it a value of authorToReturn. Id. And lastly, we want to pass in the actual authorToReturn Dto. This one will get serialized into the response body.
 
  Let's send it, we get back a 201 created, so that means that our author has been created again. We've now got two James Ellroy's in our database. Let's get that list of authors, and here we see that James Ellroy has been added to our database twice. So post is not idempotent, we cannot send that same request twice, and have the same result as only sending it once, because we now have two authors instead of just one. So now you've got a bit of unnecessary data in our database.
+
+## Creating a Child Resource
+
+There's already an AuthorId in the URI, so if we allow the AuthorId in the payloads, well, we might end up with an issue we want to avoid, and that issue is that a post to the book's resource for author A would create a book for author B.
+
+There's two ways to tackle this issue. One is adding the AuthorId in the BookForCreationDto. But that would mean we have to check if that AuthorId matches the AuthorId from the URI. The second approach is not sending over the AuthorId in the request body, and thus not adding it as a property on our BookForCreationDto.
+
+Everytime we do a create we should return an CreatedAtRoute("GetBookForAuthor", new { authorId = authorId, bookId = bookToReturn.Id }, bookToReturn);
+
+## Create Child Resources Together with a Parent Resource
+
+There's a pretty common use case when working with RESTful APIs, creating a list of children together with a parent resource in one go. So rather than having to send subsequent requests to the book's resource for an author, we want to create the author and its list of books all together.
+
+We're going to extend this, so it can create both an author without books and one with books. The first thing we need to do is extend the AuthorForCreationDto. Here we'll want to add a collection of books, and we already have a Dto for creating books, our BookForCreationDto. We must use that class and not the BookDto to avoid running into issues like having a book with the wrong AuthorId. It's a good idea to always initialize these types of collections as to avoid null reference exceptions.
+
+What's going to happen when we pass in an author with a list of books is that the author will be de-serialized into an AuthorForCreationDto, which contains a list of BookForCreationDto objects, so all the books in our request payload will be de-serialized into a list of that type. The checks here can remain as is, and the actual persistence logic is in the repository. With this little change, we've now got an action that we can use to create one author with or without books. This again drives home the point of differentiating between input and output. Input, in this case, is an author with optionally a list of books, an output is just the author, but with different fields. Now of course the repository must support this as well. We're treating it as a bit of a black box, because we're focusing our rests, and that stops at the outer-facing layer.
+
+he AddAuthor method on the repository will look at the books, and it will generate an Id for each of them if there are books in the collection. From that moment on, the DbContext contains a new author and a new list of books for that author, and once we call save, these are persisted, and that's handled by Entity Framework Core. Were we to make the Ids for each entity an identity column, EF Core will automatically generate GUIDs for us, so we don't even have to write code to create them. Our request payload was de-serialized into an author with two books. Let's continue. After mapping, our authorEntity also has these two books, as the authorEntity also has a collection of books, the AuthorForCreationDto has been mapped to an authorEntity, and the BookForCreationDto has been mapped to bookEntities, but the entities don't have their Ids filled out yet, and the author is also null at the moment. After they go to the repository, the Ids will be filled out.
+
+## Creating a Collection of Resources
+
+We can't just post a list of authors to api/authors, as how we named URI implies that one author will be posted, so what can we do? This is one of the reasons it's so important to realize there doesn't have to be a direct mapping between the entities in the backend store and our outer-facing contract. It's not because the author's resource maps to the authors in our database, that other resources cannot have an effect on the same database table, so what does all of this mean, and what should we do then? Well, we design a new resource, an AuthorCollections resource. This requires a request body that's an array of all representations, and it will result in a list of authors being added to the database.
+
+As we're creating a resource, this warrants a 201 Created status code. So we should return CreatedAtRoute, and this is the tricky part. We should include the URI where we can get this collection in the location header, so we need an action to get this AuthorCollection, but how do we do that then? If we're adding to the authors to the author table via our data store, so we don't have a direct key for an AuthorCollection. The key is a combination of a set of AuthorIds, the separation between the outer-facing contract and the data store is becoming even more apparent.
+
+## Working with Array Keys and Composite Keys
+
+Let's first separate these two. With an array key, I mean that the key is a comma-separated list, something along the lines of 1, 2, 3, if we were working with integer keys. With a composite key, I mean the key is a combination of key-value pairs, something along the lines of key 1=1, key 2=2, and so on.
+
+the question is more related to URI design than implementation. We need an array key for our location header when creating an AuthorCollection, so let's start with that. There isn't a standard that states how to work with this, but what's often done is using round brackets containing the comma-separated key. So, let's add a method to get one AuthorCollection that accepts a key that is actually a list of author GUIDs. (key1,key2,key3)
+
+hat id's parameter is an array of GUID, but there's no implicit binding to such an array that's part of the route. But if there's no implicit binding, well, we'll just have to provide it ourselves, and we can do that with the help of a custom-model binder. So let's add one to the Helpers folder, ArrayModelBinder sounds like a good name.
+
+```csharp
+public class ArrayModelBinder : IModelBinder
+{
+    public Task BindModelAsync(ModelBindingContext bindingContext)
+    {
+        // Our binder works only on enumerable types
+        if (!bindingContext.ModelMetadata.IsEnumerableType)
+        {
+            bindingContext.Result = ModelBindingResult.Failed();
+            return Task.CompletedTask;
+        }
+
+        // Get the inputted value through the value provider
+        var value = bindingContext.ValueProvider
+            .GetValue(bindingContext.ModelName).ToString();
+
+        // If that value is null or whitespace, we return null
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            bindingContext.Result = ModelBindingResult.Success(null);
+            return Task.CompletedTask;
+        }
+
+        // The value isn't null or whitespace, 
+        // and the type of the model is enumerable. 
+        // Get the enumerable's type, and a converter 
+        var elementType = bindingContext.ModelType.GetTypeInfo().GenericTypeArguments[0];
+        var converter = TypeDescriptor.GetConverter(elementType);
+
+        // Convert each item in the value list to the enumerable type
+        var values = value.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(x => converter.ConvertFromString(x.Trim()))
+            .ToArray();
+
+        // Create an array of that type, and set it as the Model value 
+        var typedValues = Array.CreateInstance(elementType, values.Length);
+        values.CopyTo(typedValues, 0);
+        bindingContext.Model = typedValues;
+
+        // return a successful result, passing in the Model 
+        bindingContext.Result = ModelBindingResult.Success(bindingContext.Model);
+        return Task.CompletedTask;
+    }
+}
+```
+
+So any ModelBinder should implement IModelBinder. And that interface exposes exactly one method, BindModelAsync. We get a model bindingContext passed in, and through that model bindingContext, we can get information of what we're binding to, and we can get the input values. So the first thing we do is make sure that the metadata about the model tells us that it's an enumerable type. If not, we set the result on the bindingContext to ModelBindingResult. failed, and we return a completed task signifying that this part is done, otherwise we can continue. The bindingContext also exposes a value provider. Through that, we can get the inputted value by passing in the model name on the getValue method. That value will, in our case, then contain a string that's a list of GUIDs. If the value IsNullOrWhiteSpace, we want to return null, that's what we use to check for a bad request. If the checks we just did check out, we can continue. We look for the generic type argument on our model type, that should return GUID. And then we create a converter. These converters are built in, and they help us with converting, in our case, string values to GUIDs. To get that converter, we call into GetConverter on the type descriptor class, passing in the elementType, GUID in our case. After that, we run through our list of values. So we split it up with a comma as a separator, and each string is converted to a GUID by calling into Converter. ConvertFromString. Lastly, we call to array, so values now contains an array of GUID. The last thing to do is create an actual result for our bindingContext. This should contain an IEnumerable of GUID. So we create an instance of that by calling into Array. CreateInstance. This creates an array of elementType for a specific length. ElementType is GUID, and values. Length, well, that's the amount of GUIDs we passed in. Then we copy over the values array into our typedValues array, and we set the typedValues as the model on our bindingContext. At this moment, our binding was successful. So, we set the result to success, and we pass in the bindingContext. Model. Lastly, we return Task. CompletedTask.
+
+Let's make sure we can use our custom model binder to bind the Ids from the URI to our enumerable of GUID. We can do that with the ModelBinder attribute, passing in the BinderType. That's our ArrayModelBinder.
+
+We need to be able to refer to the route from our method that creates an author collection, so we can create URI for the location header. So let's give it a name, say getAuthorCollection.
+
+To correctly create a response, we'll need the content for the response body, an IEnumerable of AuthorDto. So let's map the AuthorEntities to that. But also we're going to need something extra, a list of Ids, as that's our key. For that, we can use a string. join statement, passing in a comma as a separator. From each author in our collection to return, we then select the ID.
+
+That takes care of that, but what about composite keys? A composite key consists of multiple key value pairs, instead of a list of one field. So it could be something along the lines of key 1 equals value 1, key 2 equals value 2. This is a requirement that often comes up in systems where there is no simple one-on-one mapping between the outer-facing contract and the backing data store. We haven't got a good example of such a resource, but we already know how to implement something like this. We should use a route template with two keys, in this case, that map to two parameters in the action signature. So, there's actually nothing new about that, say for designing the resource URI.
+
+```csharp
+[HttpPost]
+public IActionResult CreateAuthorCollection([FromBody] IEnumerable<AuthorForCreationDto> authorCollection)
+{
+    if (authorCollection == null)
+    {
+        return BadRequest();
+    }
+
+    var authorEntities = _mapper.Map<IEnumerable<Author>>(authorCollection);
+
+    foreach (var author in authorEntities)
+    {
+        _libraryRepository.AddAuthor(author);
+    }
+
+    if (!_libraryRepository.Save())
+    {
+        throw new Exception("Creating an author collection failed on save");
+    }
+
+    var authorCollectionToReturn = _mapper.Map<IEnumerable<AuthorDto>>(authorEntities);
+
+    var idsAsString = string.Join(",",
+        authorCollectionToReturn.Select(a => a.Id));
+
+    return CreatedAtRoute("GetAuthorCollection",
+        new { ids = idsAsString },
+        authorCollectionToReturn);
+}
+
+[HttpGet("({ids})", Name = "GetAuthorCollection")]
+public IActionResult GetAuthorCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
+{
+    if (ids == null)
+    {
+        return BadRequest();
+    }
+
+    var authorEntities = _libraryRepository.GetAuthors(ids);
+
+    if (ids.Count() != authorEntities.Count())
+    {
+        return NotFound();
+    }
+
+    var authorsToReturn = _mapper.Map<IEnumerable<AuthorDto>>(authorEntities);
+
+    return Ok(authorsToReturn);
+}
+```
+
+## Handling POST to a Single Resource
