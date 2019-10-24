@@ -95,4 +95,6 @@ Problema na SDK - routing ??????
 
 A documentação está todo operancional à parte de substituir a apiVersion pela versão da API na route de forma a não ser um parâmetro a ter que passar no request
 
-No CityInfo está a dar tudo direito
+No CityInfo está a dar tudo direito.
+
+Environment SANDBOX for controlled API tests.
