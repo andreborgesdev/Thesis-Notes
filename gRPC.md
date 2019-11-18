@@ -11,6 +11,10 @@ A high-performance, open-source universal RPC framework.
   - Allows simultaneous in-flight RPC calls
 - Allow client-side and server-side streaming
 - Backed by CNCF
+- - GRPC was originally pioneered by a team at Google
+- Next generation version of an internal Google project called "stubby"
+- Now a F/OSS project with a completely open spec and contributors from many companies
+  - Development is still primarly executed by Google devs
 
 There are three high-performance event loop driven implementations:
 
@@ -18,11 +22,6 @@ There are three high-performance event loop driven implementations:
 - Java
 - Go
 - The other implementations are all mapped to the C-Core (bindings to that)
-
-- GRPC was originally pioneered by a team at Google
-- Next generation version of an internal Google project called "stubby"
-- Now a F/OSS project with a completely open spec and contributors from many companies
-  - Development is still primarly executed by Google devs
 
 GRPC Timeouts are just a parameter, it is supported on all RPC calls built in as part of the system. The client library knows about timeouts and we can just pass them in and it knows when to basically return to us and say that the call failed. In GRPC when a call times out it actually closes the stream that that RPC was open on so that the remote side, the server side, actually knows to cancel that request which means we can do really interesting things like if ou services way backed up and has not even gotten to serving a request it probably won't even see it because the GRPC layer will cancel it so it never actually gets handled which avoids from thinking we have stale services but we never had any logic to kill them.
 
@@ -42,6 +41,18 @@ gRPC (gRPC Remote Procedure Calls) is an open source remote procedure call (RPC)
 
 <https://www.youtube.com/watch?v=fMq3IpPE3TU>
 
+<https://www.youtube.com/watch?v=hNFM2pDGwKI>
+
+<http://www.http2demo.io/>
+
+<https://grpc.io/docs/tutorials/basic/csharp/>
+
+<https://medium.com/@bimeshde/grpc-vs-rest-performance-simplified-fd35d01bbd4>
+
+<https://medium.com/red-crane/grpc-and-why-it-can-save-you-development-time-436168fd0cbc>
+
+<https://blog.usejournal.com/migrating-your-rest-apis-to-http-2-why-and-how-8caee7d798fb>
+
 For a lot of services and requests
 
 ### Resiliency
@@ -54,9 +65,23 @@ For a lot of services and requests
 
 - Lookaside Load Balancing - it has the benefits of our client-side load balancing but the logic of load balancing a client we extract that into a central load balancer that is not part of the data plane, so we are not gonna have that extra hop, the load balancer sits to the side and basically just feed the client with updated lists of healthy backends upstreams, at the same time it also monitors the backend tendencies which services and endpoints are healthy or not. That is also the perfect place where we can introduce advanced routing or rollout strategies. We just extract logic from the client, from the data plane into a central place it only looks very much like a service mesh because what the lookaside load balance really is just a control plane for the GRPC clients. Proxyless RPC Mesh.
 
+The main benefits of gRPC are:
+
+- Modern, high-performance, lightweight RPC framework.
+- Contract-first API development, using Protocol Buffers by default, allowing for language agnostic implementations.
+- Tooling available for many languages to generate strongly-typed servers and clients.
+- Supports client, server, and bi-directional streaming calls.
+- Reduced network usage with Protobuf binary serialization.
+
+These benefits make gRPC ideal for:
+
+- Lightweight microservices where efficiency is critical.
+- Polyglot systems where multiple languages are required for development.
+- Point-to-point real-time services that need to handle streaming requests or responses.
+
 ## Weaknesses
 
-- Load Balancing - we basically run our RPCs over a single long-lived connection so it means that we need some sort of load balancer to take those RPCs and pull each stream out individually and then maintain back-end connections. 
+- Load Balancing - we basically run our RPCs over a single long-lived connection so it means that we need some sort of load balancer to take those RPCs and pull each stream out individually and then maintain back-end connections.
 - Error handling is really bad
 - No support for browser JS
 - Breaking API changes
@@ -64,6 +89,8 @@ For a lot of services and requests
 - No standardization across languages
 
 ## gRPC vs APIs
+
+<https://docs.microsoft.com/en-us/aspnet/core/grpc/comparison?view=aspnetcore-3.0>
 
 "REST APIs are the worst APIs, except for all of the other ones"
 
@@ -138,6 +165,12 @@ It is similar to WSDL, BUT GRPC avoids major WSDL failures because they learned 
 
 ## Proto
 
+<https://developers.google.com/protocol-buffers/docs/overview>
+
+<https://developers.google.com/protocol-buffers/docs/proto3>
+
+Protocol buffers are a flexible, efficient, automated mechanism for serializing structured data – think XML, but smaller, faster, and simpler. You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. You can even update your data structure without breaking deployed programs that are compiled against the "old" format.
+
 The protobuf definition files is where we define our API as one source and where we define our message format (schema management) and from that we can generate code in multiple different languages. It also gives us a "single source of truth" for our APIs and our services that is really what we have to share with others in order for them to know exactly how to call our services and what to expect back.
 
 A lot better then JSON schemas because even though those are machine-readable they do not have a standard.
@@ -150,6 +183,8 @@ Uber tool to handle proto files - proto-tool
 Spotify - proto-man
 
 Version on the proto package. Do not do versioning, ofc we are going to have versions but do not try to distribute different proto files with different version in their file name or anything like that or in our client implementation, just rely on the protobuf to being backwards compatible. If we need to do breaking changes we create a new package, proto package. If we are not comfortable with actually publishing that package and setting that version strictly we can call it name+"beta1", a lot of companies follow that pattern.
+
+A language-neutral, platform-neutral, extensible way of serializing structured data for use in communications protocols, data storage, and more.
 
 ## Performance gains/losses
 
@@ -169,3 +204,37 @@ Version on the proto package. Do not do versioning, ofc we are going to have ver
 ## Unity and load tests
 
 ## Hosting
+
+## Others
+
+Outcomes
+Let’s go back to our original criteria:
+
+- Language-neutral
+- Fast
+- Easy to use
+
+In terms of language support, JSON-backed REST is the clear winner. gRPC’s language support has improved drastically over the last couple of years, however, and it’s arguably sufficient for most use cases.
+
+Our performance comparisons eliminate HTTP/1.1 from all use cases but supporting legacy clients through a front-end API service. Between gRPC and REST over HTTP/2, the performance difference is still significant. Anytime that request performance is a key issue, gRPC seems to be the correct choice.
+
+In terms of ease of use, developers need to write less code to do the same thing in gRPC compared to REST. Debugging is different, but not necessarily any harder. It’s more a problem of developers getting used to a new paradigm.
+
+From our findings, we can see that gRPC is a much better solution for internal service to service communication. It has better performance, improves development speed, and is sufficiently language-neutral. We can conclude that we should default to building gRPC services unless REST is needed to support external clients, or to support a language/platform gRPC isn’t built for yet.
+
+Impacts
+
+- Reduced latency for customers; a better user experience
+- Lower processing time for requests; lower costs
+- Improved developer efficiency; lower costs for companies and more new features developed
+
+## C-Core
+
+<https://grpc.io/blog/grpc-stacks/>
+
+## Event-driven
+
+- Too complex
+- Of course, event-driven architectures have drawbacks as well. They are easy to over-engineer by separating concerns that might be simpler when closely coupled;  can require a significant upfront investment; and often result in additional complexity in infrastructure, service contracts or schemas, polyglot build systems, and dependency graphs. 
+Perhaps the most significant drawback and challenge is data and transaction management. Because of their asynchronous nature, event-driven models must carefully handle inconsistent data between services, incompatible versions, watch for duplicate events, and typically do not support ACID transactions, instead supporting eventual consistency which can be more difficult to track or debug.
+
