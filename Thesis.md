@@ -1,6 +1,9 @@
 # Thesis
 
+- Mais do que uma metodologia?
+- Vantagens e desvantagens dentro ou fora? MS related patterns
 - Meter os conceitos do glossário a negrito?
+- Como fazer com as abreviações?
 - Meter arquitetura de MS da Primavera
 
 - Review title - tirar subtitulo e meter development - Done
