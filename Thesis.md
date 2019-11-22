@@ -2,6 +2,7 @@
 
 - Mais do que uma metodologia?
 - Vantagens e desvantagens dentro ou fora? MS related patterns
+- Explorar os patterns todos ou só os que interessam ao projeto?
 - Meter os conceitos do glossário a negrito?
 - Como fazer com as abreviações?
 - Meter arquitetura de MS da Primavera
