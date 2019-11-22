@@ -1,11 +1,15 @@
 # Thesis
 
-- Mais do que uma metodologia?
-- Vantagens e desvantagens dentro ou fora? MS related patterns
+- Mais do que uma metodologia? Não
+- Vantagens e desvantagens dentro ou fora? MS related patterns - Ver fluxo que faz sentido
 - Explorar os patterns todos ou só os que interessam ao projeto?
 - Meter os conceitos do glossário a negrito?
 - Como fazer com as abreviações?
 - Meter arquitetura de MS da Primavera
+
+A abordagem da metedologia depende do meu problema e desde que eu saiba justificar está ok.
+Não deixar espaços em branco nas imagens. Moldar o texto. A imagem não tem que estar à beira. Dizer que estamos a ver a Figura X
+As figuras podem ser adaptadas (Adapted from ...) ou copiadas desde que saiba explicar e faça sentido estar lá
 
 - Review title - tirar subtitulo e meter development - Done
 - Capa e folha rosto template - pequeno e nome completo - Done
