@@ -71,3 +71,33 @@ Enumerating over the nodes is not difficult, but is done so frequently that it's
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/LinkedList_Enumerate.png?raw=true)
 
+### Singly Linked List
+
+this is a somewhat simplistic implementation; it doesn't take into account a lot of the error handling cases that a production class would need, and it only implements a subset of the truly useful behaviors that a Linked List offers, but it gives enough insight into how the Linked List works that I think it's a good foundation to work from. 
+
+___Linked List Node___ is very similar to the node class that we've already looked at several times in the module so far, only this time, you can see that the Linked List node takes advantage of the C# generic syntax. This allows us to hold not just integers but any type of object within our Linked List.
+
+One more deviation from what we've seen is that we've added a constructor, and this constructor allows us to create a node with a pre-specified value. This is just a little bit of syntax sugar to help with creating nodes. Otherwise, the node is nearly identical to what we saw before.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/LinkedList_Implementation.png?raw=true)
+
+___Linked List Class___ is also a generic type, meaning that the Linked List can contain nodes that hold any type of data, and it implements the ICollection<T> generic interface, and this interface provides a certain set of operations that all collections that implement this interface are guaranteed to expose.
+
+We have the pointer to the Head node and the pointer to the Tail node. These are auto-implemented properties, so they default to the value null, they have public getters but private setters, because the list should be managing these values and nothing else.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/LinkedList_Class.png?raw=true)
+
+For the ___ICollection interface___ we have the Count property, another auto-implemented property with a public getter and a private setter. At any moment, the Count property will indicate the number of nodes that are currently in the list. It contains opertaions like:
+
+- Add() - Adds the item to the front of the list
+- Contains - performs a simple enumeration over the list and returns true if a node with the specified value is found. This enumeration pattern matches what the GetEnumerator does, only it puts the behavior in line with the enumeration
+- CopyTo - copy all of the nodes from the Linked List into an Array, and again, it's the basic enumeration pattern.
+- IsReadOnly
+- Remove - this one differs from the Removes we've looked at is that it doesn't require that the item be removed from the start or the end of the list, it allows an item by value to be removed anywhere within the list. There are four cases we need to care about here. We have an Empty list where nothing's done; we have a list with a Single node where we just want to remove that node if the value matches; and we have a list with Many nodes. And within the Many nodes, we distinguish between removing the first node in the list and removing any subsequent node in the list.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/LinkedList_ICollection_Remove.png?raw=true)
+
+- GetEnumerator<T>
+- GetEnumerator
+- Clear - Clear in a Linked List is very simple in a garbage collected environment; you just set Head to null, Tail to null, and Count to 0. We can do this in C#, because what that will do is remove all of our references to every node in the node chain, and they'll be garbage collected.
+
