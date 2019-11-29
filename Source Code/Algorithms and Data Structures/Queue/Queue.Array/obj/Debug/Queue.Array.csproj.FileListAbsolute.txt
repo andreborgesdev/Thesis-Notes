@@ -1,0 +1,10 @@
+C:\Users\rhorvick\Documents\My Dropbox\DataStructures\Queue\exercise-files\Queue.Array\bin\Debug\Queue.Array.dll
+C:\Users\rhorvick\Documents\My Dropbox\DataStructures\Queue\exercise-files\Queue.Array\bin\Debug\Queue.Array.pdb
+C:\Users\rhorvick\Documents\My Dropbox\DataStructures\Queue\exercise-files\Queue.Array\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\rhorvick\Documents\My Dropbox\DataStructures\Queue\exercise-files\Queue.Array\obj\Debug\Queue.Array.dll
+C:\Users\rhorvick\Documents\My Dropbox\DataStructures\Queue\exercise-files\Queue.Array\obj\Debug\Queue.Array.pdb
+C:\Users\Robert\Documents\My Dropbox\DataStructures\Queue\exercise-files\Queue.Array\bin\Debug\Queue.Array.dll
+C:\Users\Robert\Documents\My Dropbox\DataStructures\Queue\exercise-files\Queue.Array\bin\Debug\Queue.Array.pdb
+C:\Users\Robert\Documents\My Dropbox\DataStructures\Queue\exercise-files\Queue.Array\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Robert\Documents\My Dropbox\DataStructures\Queue\exercise-files\Queue.Array\obj\Debug\Queue.Array.dll
+C:\Users\Robert\Documents\My Dropbox\DataStructures\Queue\exercise-files\Queue.Array\obj\Debug\Queue.Array.pdb

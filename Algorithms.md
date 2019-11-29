@@ -101,3 +101,29 @@ For the ___ICollection interface___ we have the Count property, another auto-imp
 - GetEnumerator
 - Clear - Clear in a Linked List is very simple in a garbage collected environment; you just set Head to null, Tail to null, and Count to 0. We can do this in C#, because what that will do is remove all of our references to every node in the node chain, and they'll be garbage collected.
 
+### Doubly Linked List
+
+What we've looked at so far is known as a Singly Linked List. Now, it's called that because each node in the chain has a single link to another node. This type of Linked List works great when you only need forward access to the nodes. But, there are times when being able to enumerate the nodes both forwards and backwards might be beneficial. There's a specialization of the Linked List, where each node contains two pointers; one to the Next node just like the Singly Linked List, and one to the Previous node.
+
+A Doubly Linked List starts with the single node. In this case, we have a node with a value 3, and Null Previous and Next pointers. Just like with the Singly Linked List, we need to create a second node to start the node chain. So, we'll create a node with the value 5, and it also has Null Previous and Next pointers. Now, what we're going to need to do is create the chain by linking these two nodes together. Now, like the Singly Linked List, the Next pointer of the first node will now point to the second node. But because this is a Doubly Linked List, we'll also create a link back from the second node to the first. This means we can navigate from the second node back to the first node as easily as we can the first to the second. And just like a Singly Linked List, this pattern can continue for as many nodes as needed. Now, a Singly Linked List and a Doubly Linked List are very similar in implementation.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/DoublyLinkedList.png?raw=true)
+
+In the ___Linked List Node___ we only add the pointer to the Previous Node.
+
+The ___Doubly Linked List Class___ is also nearly identical to the Singly Linked List class. The differences are around managing the Previous pointer
+
+The differences are:
+
+- AddFirst()
+- AddLast()
+- RemoveFirst()
+- RemoveLast() - Here we see performace improvment because we don't have to iterate through the entire list
+- Remove() 
+
+For the cost of one additional pointer in the node, and a little more pointer management during Add and Remove operations, we were able to remove the most expensive operation that existed within the Linked List class, and that's a really good performance benefit to take for a little bit of overhead, and it also makes the list much more functional. Now as a consumer, for-each will only iterate forwards in the list, that hasn't changed, but once I'm midway through the list, I can manually walk backwards, and that's a very powerful pattern to be able to have introduced.
+
+The Doubly Linked List is so important, that. NET's own Linked List class is a Doubly Linked List.
+
+### Modern Implementations
+
