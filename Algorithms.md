@@ -64,3 +64,10 @@ ___This requires enumerating over all of the nodes in the list.___ This is becau
 So, removing from the front of the list is not nearly as complex; it simply involves setting the Head pointer to the node that follows Head, and that's it. When the list contains only one node, removing it involves just setting Head and Tail to Null.
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/LinkedList_Remove_From_Front.png?raw=true)
+
+### Enumerate
+
+Enumerating over the nodes is not difficult, but is done so frequently that it's worth looking at it in more detail. The key to enumerating over a Linked List is keeping a pointer to the next node to enumerate. Eventually, the Tail node is reached, and after yielding the value, current is assigned to null, which causes the loop to terminate and the method to return.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/LinkedList_Enumerate.png?raw=true)
+
