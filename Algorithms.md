@@ -163,8 +163,28 @@ But there are ___downsides___ to this approach, and many of them have to do with
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_LinkedList.png?raw=true)
 
+We've seen how a Linked List makes it very easy to implement a Stack, but does so at the cost of performance.
+
 ### Array
 
+Now we will use an Array as the storage mechanism.
 
+When this example starts, there's no Array because the Stack is empty, but eventually, a value is pushed onto the Stack. When this happens, the Stack allocates an Array. Now notice that even though a single item was pushed, the Array contains six open slots. This over-allocation of the array will reduce the number of times the array needs to grow as more items are pushed to the Stack. The pushed item is added to the Array in the first slot, and the Stack records that this Array index contains the top of the Stack. When another item is pushed onto the Stack, the item already in the Array remains in the same place; the new item is added after it, and the Top pointer is updated; this can continue over and over. And now because there is data at the top of the Stack, the item at the top can be peeked at, and as items are popped, the pointer to the top item is updated, and this can continue for as long as the Stack is not empty.
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_Array.png?raw=true)
+
+Using an Array as the backing store  is a much more complex class.
+
+Allocating an Array with a length of 0  is to avoid having to check for null later on. We can just check for length and find we have a length of 0. This makes the code a little more streamlined and avoids a special case.
+
+Size is not equal to the number of items that can be held by the Array or the Array's length; this is the number of items currently in the Array.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_Array_Push.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_Array_Pop.png?raw=true)
+
+Clear sets size to 0. Now one thing to keep in mind, which I didn't deal with in this class, is that setting size to 0 doesn't clear out the Array. Now, for integers that's fine, but if this Array contained disposable objects or objects that had finalizers, leaving them in that Array would keep a reference to them alive. So if you're implementing a production quality Stack, you're going to need to deal with issues like that, and this is one of the reasons that it's important to always consider using the Stack provided to you by the platform you're on, because it should be taking care of these issues for you.
+
+For Enumerators we're using the yield syntax as we enumerate over the items; the only tricky thing here is we enumerate the items backwards, and that's because the last item in the Array is the first item we want to return. We want to return these items as if you had called Pop, Pop, Pop, Pop, Pop. If we return them from index 0 up to size, they'll be returned in First In First Out order not Last In First Out order.
+
+___It should be clear that that complexity brings with it some performance improvements that are well worth it.___
