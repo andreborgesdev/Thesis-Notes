@@ -46,3 +46,21 @@ This characteristic of efficient insertion is one of the key benefits of the Lin
 It can be just as useful to add a node to the end of the list. Like before, we have an empty list with a Null Head and Tail pointers, and it's that Tail pointer that's going to make this operation much easier. When we create our first node, like before, the Head pointer is updated to point to the new node, and so is the Tail pointer. Now, when a second node is created, the Head pointer remains unchanged, and the Tail pointer points to the new node. Having the Tail pointer allows us to add the node to the tail very easily. It could certainly have been done without a Tail pointer, but nearly as easily or with such predictable performance characteristics.
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/LinkedList_Add_To_End.png?raw=true)
+
+### Remove Items
+
+#### Remove from end
+
+Like Add, Remove can be performed from the front or the end of the list.
+
+Removing the Tail node 7 requires updating the Tail pointer and setting the next value for 5 to null; doing that will eliminate all references to the 7 node, which effectively removes it from the list.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/LinkedList_Remove_From_End.png?raw=true)
+
+___This requires enumerating over all of the nodes in the list.___ This is because we're only storing references to the Head and Tail nodes. But, to perform this operation, we actually need to update the second to last node. Now, this is not incredibly complex. It's a simpler while loop to iterate until the second to last node. But having to walk the list every time a node is removed from the end can end up having significant performance implications on your application. Imagine a list that contained millions of nodes; removing each node from the end could require millions of millions of operations.
+
+#### Remove from front
+
+So, removing from the front of the list is not nearly as complex; it simply involves setting the Head pointer to the node that follows Head, and that's it. When the list contains only one node, removing it involves just setting Head and Tail to Null.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/LinkedList_Remove_From_Front.png?raw=true)
