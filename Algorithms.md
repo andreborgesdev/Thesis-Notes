@@ -127,3 +127,39 @@ The Doubly Linked List is so important, that. NET's own Linked List class is a D
 
 ### Modern Implementations
 
+In the real world, however, you would be unlikely to come across many situations where you would create your own Linked List structure. Typically, you'll be using a language or framework that provides a Linked List class that is already tested, performant, and compatible with your application. Unless you have a proven need to create your own Linked List, I would highly recommend that you use the one provided for you.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/LinkedList_Class_DOTNET.png?raw=true)
+
+## Stacks
+
+A Stack is a collection in which data is added and removed in a Last In First Out order. This means that the item most recently added to the Stack will be the one that is next handed back from the collection.
+
+The restaurant plate stacker is one of the easiest way to explain how a Stack works. This is a device where clean plates are put into a spring-loaded cylinder. As customers need a clean plate they walk up to the stacker and remove the top plate.
+
+### Push
+
+So we have an empty plate stacker. Since it's empty, the dishwasher is notified that more plates are needed, and as plates are cleaned, they're added to the stack. In computer science terms, this is known as "pushing".
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_Push.png?raw=true)
+
+### Pop
+
+Now, at this point, we have a plate stacker with four plates in it. A customer could walk up and could see that there is at least one plate in the stacker. She doesn't necessarily know or even care how many plates are beneath that plate; all she really cares about is that there's one available for her. So, she can take the top plate from the stack. In computer science terms, this action is known as "popping" the plate from the stack.
+
+Last In First Out means the last plate added to the stack was the first plate removed by the customer. As more and more customers come, the plates are popped from the stack, each time reducing the depth or the number of items in the stack. Eventually, the stack is empty, and at this point, no more items can be popped from the stack.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_Pop.png?raw=true)
+
+### Using a Linked List
+
+A Linked List is a series of nodes linked together into a chain. We can use this type of structure to help build our stack. The stack would contain a Linked List whose Head node pointed to the most recently added or top item.
+
+Eventually, the stack owner will need to remove data, and will do so by calling the pop method. When this happens, the front node of the list is removed, and the next node of the node chain becomes the top of the stack.
+
+So, ___why would I choose to use a Linked List___ as the data storage medium for a stack as opposed to another structure such as an Array? Well first, because it's a Linked List, it has no hard size limit; the only real constraint is the number of nodes that can be allocated, and for modern personal computers this would be a huge number, millions or billions of nodes. It's also a very straightforward way to implement a stack. An Array, for example, would require bounds checking to make sure that a push didn't cause the item to exceed the Array's bounds.
+
+But there are ___downsides___ to this approach, and many of them have to do with performance and scalability. The first is that adding an item to the stack causes a memory allocation to occur every time. This can end up causing undesirable performance characteristics in high performance systems. On a related issue, the memory cost for each node can be significantly more than the cost of the data being stored. For example, a 32-bit value such as an integer might have memory overhead several times larger than the integer itself. And then there's the bucket of general performance issues. These issues really only affect high performance systems, but they can be very significant. They include things like data locality problems and memory fragmentation; things that Linked Lists run into because they're storing the nodes throughout the heap, but an Array can avoid by keeping all the data really near each other.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_LinkedList.png?raw=true)
+
