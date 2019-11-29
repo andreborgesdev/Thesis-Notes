@@ -188,3 +188,25 @@ Clear sets size to 0. Now one thing to keep in mind, which I didn't deal with in
 For Enumerators we're using the yield syntax as we enumerate over the items; the only tricky thing here is we enumerate the items backwards, and that's because the last item in the Array is the first item we want to return. We want to return these items as if you had called Pop, Pop, Pop, Pop, Pop. If we return them from index 0 up to size, they'll be returned in First In First Out order not Last In First Out order.
 
 ___It should be clear that that complexity brings with it some performance improvements that are well worth it.___
+
+### Postfix Calculator
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_Postfix_Calculator.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_Postfix_Calculator_Algorithm.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_Postfix_Calculator_Algorithm_Code.png?raw=true)
+
+Whether the Stack was backed by an Array or a Linked List or some other structure it didn't matter. It was the Last In First Out behavior of the Stack that made this possible.
+
+### Undo
+
+A Stack can be used to store these operations in a Last In First Out order, and how that can be used to undo operations.
+
+### Modern Implementations
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_Modern_Implementations.png?raw=true)
+
+In the. NET framework, Peek returns you the value at the top of the Stack, and Pop returns you the value at the top of the Stack and removes that item from the Stack, but in the C++ Stack, Pop does not return the item, it simply removes the item, so you can see in the code, when the Stack is allocated and then items are pushed, we don't pop those items off, we look at the top item to retrieve the value, and then we pop the value off.
+
+## Queue
