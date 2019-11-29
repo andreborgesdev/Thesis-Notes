@@ -163,3 +163,8 @@ But there are ___downsides___ to this approach, and many of them have to do with
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_LinkedList.png?raw=true)
 
+### Array
+
+
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Stack_Array.png?raw=true)
