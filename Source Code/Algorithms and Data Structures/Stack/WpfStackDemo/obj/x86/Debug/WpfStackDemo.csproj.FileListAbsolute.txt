@@ -1,0 +1,15 @@
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\bin\Debug\WpfStackDemo.exe
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\bin\Debug\WpfStackDemo.pdb
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\bin\Debug\Stack.List.dll
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\bin\Debug\Stack.List.pdb
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\WpfStackDemo.csprojAssemblyReference.cache
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\MainWindow.baml
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\App.g.cs
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\WpfStackDemo_MarkupCompile.cache
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\WpfStackDemo.g.resources
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\WpfStackDemo.Properties.Resources.resources
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\WpfStackDemo.csproj.GenerateResource.cache
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\WpfStackDemo.csproj.CopyComplete
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\WpfStackDemo.exe
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\WpfStackDemo\obj\x86\Debug\WpfStackDemo.pdb

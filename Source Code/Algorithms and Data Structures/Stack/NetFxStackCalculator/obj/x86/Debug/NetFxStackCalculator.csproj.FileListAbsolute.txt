@@ -1,0 +1,5 @@
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\NetFxStackCalculator\bin\Debug\NetFxStackCalculator.exe
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\NetFxStackCalculator\bin\Debug\NetFxStackCalculator.pdb
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\NetFxStackCalculator\obj\x86\Debug\NetFxStackCalculator.csprojAssemblyReference.cache
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\NetFxStackCalculator\obj\x86\Debug\NetFxStackCalculator.exe
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\NetFxStackCalculator\obj\x86\Debug\NetFxStackCalculator.pdb

@@ -1,0 +1,5 @@
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\Stack\bin\Debug\Stack.List.dll
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\Stack\bin\Debug\Stack.List.pdb
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\Stack\obj\Debug\Stack.List.csprojAssemblyReference.cache
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\Stack\obj\Debug\Stack.List.dll
+C:\Users\Andre.Borges\Dropbox\5º ano\Dissertação\Thesis\Notes\Source Code\Algorithms and Data Structures\Stack\Stack\obj\Debug\Stack.List.pdb
