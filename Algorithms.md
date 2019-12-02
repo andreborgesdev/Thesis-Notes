@@ -279,4 +279,25 @@ Linked Lists don't need to worry about wrapping or efficient storage. We don't w
 
 - Enqueue needs more work
 - Dequeue is a bit more easy because it does not need to care about array growth
-- Enumerate needs more work as well, same logic as Enqueue growth
+- Enumerate needs more work as well, same logic as Enqueue growth loop
+
+Linked List implementation, but it comes with the benefits that Arrays have over Linked Lists, which include data locality and performance gains, as well as reducing the overall number of allocations and incredibly fast Enqueue and Dequeue times when there isn't an allocation being performed. Array back stores are quite popular, and in fact are the default for many Queue classes implemented in the real world.
+
+### Priority Queue
+
+Queues show up in software design very frequently, and quite often they're implemented as a specialization of the Queue, known as a Priority Queue. Priority Queues differ from normal Queues in that they are not First In, First Out, but rather, they return the highest priority items first, regardless of the order in which they were added to the Queue.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_Priority.png?raw=true)
+
+A good analogy might be a police station call center. People call the police for all sorts of reasons, and each reason has a specific priority. Life and death issues are a higher priority than complaints about noisy neighbors. So when the officer starts his shift, he has nothing in his Queue. Eventually, a call comes in with a noise complaint. Since it's the first call of the day, it's immediately the highest priority item in the officer's Queue. So, the officer begins the trip to the area of the complaint, but before he arrives, a higher priority incident occurs, an auto accident, and this now becomes his focus and the noise complaint falls further in the Stack. While still dealing with the auto accident, a call comes in from a store that has experienced a theft. This is more important than a noise complaint, but not as important as the auto accident. Finally, another noise complaint comes in, and being of equal priority to the existing noise complaint, it's added to the Queue at the same location.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_Priority_Enqueue.png?raw=true)
+
+### Modern Implementations
+
+Queues are a commonly used Data Structure and one that has a place in every developer's tool belt. In fact, implementations of Queues exist in most modern languages and frameworks.
+
+## Binary Trees
+
+### Tree
+
