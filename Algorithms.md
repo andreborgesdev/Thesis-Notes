@@ -301,3 +301,28 @@ Queues are a commonly used Data Structure and one that has a place in every deve
 
 ### Tree
 
+Trees are similar to Linked Lists in that they chain together nodes of data, but they do it in a hierarchical rather than in a linear manner.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Tree.png?raw=true)
+
+The Vice President has three direct reports, two Team Leads, and a Consultant. Each of these reporting relationships is represented by a line, and each of those lines represents a link in a unique chain between the Vice President and the subordinate.
+
+There are a few properties to this Tree that are important to discuss. Let's start by sharing some common terms.
+
+- In this Tree, the Vice President is the root or the top node; it's sometimes referred to as the Head node.
+- The Consultant, and all of the unnamed team members, are said to be leaf nodes or terminal nodes.
+- The Team Leads and the Consultant are child nodes or children to the Vice President, and the Vice President is said to be their parent. So, each Team Lead also has children and is itself their parent.
+
+Now, let's talk about the relationship between the nodes. Each node is capable of linking itself to any arbitrary number of children. You can see the Vice President has three children, each Team Lead has four, and the Consultant has none. There's no inherent limit in this example to the number of children that a node could contain. The limit that does exist is that each node has exactly one parent. Now this causes a very important implication, and that is that there is exactly one path from the Vice President to any other node in the Tree, and likewise exactly one path from any node in the Tree back to the Vice President, and therefore, there is exactly one path that can be taken between any nodes in the Tree. That limitation, a single path between nodes, is a fundamental rule that the Tree structures we'll be looking at will never violate.
+
+### Binary Trees
+
+A Binary Tree is a Hierarchy of Data with some structure rules. It starts out with a Root Node. This is a node that has no parent, and at the moment it has no children. Now we can create zero, one, or two children. In this example, we now have two children; we have a Left Child, and we have a Right Child. Now, each child is itself a tree with the exact same structure limits as the parent. In this case we're showing Left Children and Right Children. So, unlike the previous Tree structure, the Binary Tree has at most two child nodes, thus the name Binary, and those children are known as the Left and the Right Children.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Tree_2.png?raw=true)
+
+A Binary Search Tree doesn't change the structural rules of the Binary Tree, but it imposes an additional data rule, and that is that all the values in the Tree are stored in Sort Order; the smallest values are on the left, and the largest values are on the right.
+
+We start with the Root Node. In this case, the node has the value 4. The Root Node has a Child with a value 2. Because the value is less than 4, it becomes the Left Child of the 4 node. The Root Node also has a Child with the value 6. Because this value is greater than 4, it becomes the Right Child of the Root Node. And this simple set of rules is followed recursively throughout the Tree. And now once the structure is created, we can see that it's sorted in a way that the left-most node contains the smallest value, and the right-most node contains the largest.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree.png?raw=true)
