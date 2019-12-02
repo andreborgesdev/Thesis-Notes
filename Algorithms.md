@@ -259,3 +259,24 @@ Because our type is enumerable we provide the Enumerator methods, and all we nee
 
 This is quite a bit more complex.
 
+When we allocate the Queue, the backing store is an empty Array with five slots. Now, as items are Enqueued, they're added to the Array from the front to the end. Now, at this point, the Queue has five items in it, and the Array is full. So, if Dequeue were called, the first item would be removed. This has opened up a slot in the Array. A second call to Dequeue would free another slot. And what happens if we call Enqueue again? Well, the value is added to the first open slot.
+
+Now we have a Queue whose Array has four of five slots filled. The Head item is the third item; that is, it's the next item that will be returned when Dequeue is called. The Tail item is the first Array item; that is the last item in the Queue. There's also an open slot in the Array. That slot will be filled the next time Enqueue is called.
+
+So, the question now, with the Array being full, is what should happen if Enqueue is called yet again? Should an exception be thrown, or should the Array grow to accommodate more items?
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_Array.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_Array_Growth.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_Array_Growth_2.png?raw=true)
+
+Array growth is quite a bit more complex. It requires memory allocations, and it requires copying data around in a nontrivial manner. But, the performance benefits of using an Array, as they were with the Stack, are somewhat significant; all the items are kept together closer in memory, the allocations are reduced to periods where the Array is growing, and Enqueuing or Dequeuing items from the Queue requires only setting an Array value and modifying some indexes.
+
+An Array of 0 items for the Queue, and this means I don't need to do null checks later on, and I can just do length checks each time I'm adding.
+
+Linked Lists don't need to worry about wrapping or efficient storage. We don't want to waste space that we've allocated, so we need to do the extra work to make sure we make the best use of it.
+
+- Enqueue needs more work
+- Dequeue is a bit more easy because it does not need to care about array growth
+- Enumerate needs more work as well, same logic as Enqueue growth
