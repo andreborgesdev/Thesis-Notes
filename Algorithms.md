@@ -217,14 +217,45 @@ In its simplest form, a Queue is a collection that returns items in the same ord
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue.png?raw=true)
 
+And what's nice about storing these items in a Queue is that even though we're not processing them quite as a fast as they come in, we're also not losing the values. And this is one of the reasons Queues are so popular in computer science; they're a structure that allows us to take incoming data and store it in a way that allows us to process it later, but in the order it showed up, which is a sort of fairness that you often look for in computer science. So eventually we process all the items and the Queue is empty.
+
 ### Enqueue
 
 It all starts by creating the Queue.
 
-Next we add or Enqueue an item. This is like a shopper getting into the grocery line. What we're going to do is add the value 1 into the Queue.
+Next we add or Enqueue an item. This is like a shopper getting into the grocery line. What we're going to do is add the value 1 into the Queue. Now that this item has been added, it is the head of the Queue.
+
+Just like the Stack Data Structure we saw in a previous module, it can be useful to know what item is at the head of the Queue, and we can use the Peek method for that, and it returns the value 1, because that is the front or the head of the Queue.
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_Enqueue.png?raw=true)
 
 ### Dequeue
 
+When we begin, the head of the Queue is at the number 1; that's the first item we added to the Queue. When the Dequeue operation starts, it removes the 1 from the Queue, returns it to the caller, and adjusts the head of the Queue to be the next oldest item or the number 2.
+
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_Dequeue.png?raw=true)
+
+### Linked List Implementation
+
+Implementing a Stack using a Linked List was quite simple, but that the simplicity came at a performance tradeoff. The Queue is no exception in this regard.
+
+Each time we remove an item, the Head pointer moves to the next item in the list, but the Head of the list is always the Head of the Queue.
+
+Why AddLast and RemoveFirst? Why not AddFirst and RemoveLast? Like the Stack, all of the items in the Queue can be enumerated over. The expectation of the caller would be that the items would be enumerated in the same order that they would be Dequeued. So, in the example we just saw, we would expect the enumeration to have worked 1, 2, 3, 4, 5. So, by storing them in the list in the Head to Tail order, we can use the list to perform the enumeration for us; it just works.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_LinkedList.png?raw=true)
+
+Enqueue simply adds the item provided to the end of the list. It doesn't have to worry about whether the list is empty or what other items might be in the list. The item being added should simply go to the end of the list.
+
+Dequeue will simply take the first item in the list, store it off into a temporary variable, remove the first item, and then return the stored value. So, it's pulling off the first item in the list and returning it. If the list is empty an exception is thrown.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_LinkedList_Enq_Deq.png?raw=true)
+
+Because our type is enumerable we provide the Enumerator methods, and all we need to do is defer to the list. Now, being able to defer to the list is only possible because we're storing these items in first to last order; we're adding the items to the end of the list, which means the value that we want to enumerate first is the front of the list, and that's exactly how a list enumerator works, and that's why we store items in that order.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_LinkedList_Enum.png?raw=true)
+
+### Array Implementation
+
+This is quite a bit more complex.
+
