@@ -326,3 +326,94 @@ A Binary Search Tree doesn't change the structural rules of the Binary Tree, but
 We start with the Root Node. In this case, the node has the value 4. The Root Node has a Child with a value 2. Because the value is less than 4, it becomes the Left Child of the 4 node. The Root Node also has a Child with the value 6. Because this value is greater than 4, it becomes the Right Child of the Root Node. And this simple set of rules is followed recursively throughout the Tree. And now once the structure is created, we can see that it's sorted in a way that the left-most node contains the smallest value, and the right-most node contains the largest.
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree.png?raw=true)
+
+### Adding Data
+
+Adding items to the Tree is performed with a recursive algorithm. Now, throughout the module, we'll see that Trees lend themselves well to recursive algorithms, and that this can help use ease our understanding of Trees.
+
+What if we add the value 4 when we already have the value 4 in the Tree? Well, we're going to treat it as a Larger Value. Now, that's a little bit odd that we would treat 4 as larger than 4, but ultimately we only have two choices; we can either send the node to the left or to the right, and that will be determined by whether we view it as being larger or smaller. So, we're going to view it as being larger. So, the 4 will go down to the 6, where it's determined that it's smaller than 6, so it will go to the left.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Adding_Data.png?raw=true)
+
+### Searching Data
+
+Now what we're going to do is see why those data ordering requirements make the Binary Search Tree a really efficient structure for searching for data.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Searching.png?raw=true)
+
+On the left, we have the algorithm for finding data within the Tree, and on the right we have the Tree we're going to be searching.
+
+Notice that we did find our Node only having to look at three nodes. Now imagine in a Linked List we could potentially have had to searched all of the items in the list.
+
+7 doesn't have a right node, so current. Right from the 7 node is null, so once we recursively call Find, well the current node is null so we return null, and ultimately the caller of Find will get a null node value back, and that will inform the caller than no value was found in the Tree.
+
+But even here notice in the case where the value did not exist in the Tree, we did not have to look at every node in the Tree to determine that; we only had to look at three of the nodes, and that's the property that makes a Binary Search Tree desirable compared to a structure like a Linked List. In a Linked List, the only way to determine that the value of 8 was not in the Linked List would have been to have looked at every node in the list.
+
+So here we've been able to determine that nodes were or were not in the Tree while looking at a subset of the data in the Tree, and that's a very powerful mechanism, and one of the reasons that Binary Trees and similar Tree structures are very commonly used in computer science.
+
+### Removing Data
+
+Remove has three distinct phases
+
+- First, we need to find the node to be deleted. If the node does not exist, we exit. Now, remember from Find, that it's easy to tell if a node does or doesn't exist in a Tree, and it's pretty efficient to do that.
+- Now, if the node that we found is a terminal node or it's a leaf node, you simply remove it from the Tree by nulling out the parent's pointer to the node we're deleting. Now, a key point here is when we find that node we need to know its parent.
+- And for a non-leaf node, what we need to do is find the correct child to replace the node we're deleting.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Remove.png?raw=true)
+
+Now, the 8 node has no right child, so what we're going to do is promote its left child into its place. Now, I want you to think about why that's the case. Since there's no child to the right, there is no value underneath the 4 that is going to be larger than 8. So, when we perform the delete operation, we've now promoted that Tree, the 6, 5, 7 nodes, up in place where the 8 was. And this works because we haven't broken the invariant structure of the tree. Everything to the right of the Root Node is greater than the Root Node, and when you go down to the 6 node, everything to its right is greater than 6, everything that's left is less than 6. So, we've been able to retain the rules that the Tree must follow while only having to move one block of nodes around.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Remove_Case_1.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Remove_Case_1_2.png?raw=true)
+
+The node to the right has no left child, the 7 has no left, so we're going to promote that right child, the 7 node, up to where the 6 node is. And now this is going to mean not just re-pointing 4 to 7, but 7 also has to become the parent of 5. So what we did there was we moved that entire right Tree up into the Remove node slot. And again, this works because we haven't broken the invariant structure of the tree. We know that everything to the right of 7 is going to be greater than 7, and everything to the left will be less than 7.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Remove_Case_2.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Remove_Case_2_2.png?raw=true)
+
+What we're going to do, is the right child's left-most child node will replace the removed node.
+
+And now notice we've retained the invariant structure. Everything greater than 7 is to the right, everything less than 7 is to the left. And the reason we use the left-most child is because we know the left-most child is going to be the smallest value in the Tree.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Remove_Case_3.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Remove_Case_3_2.png?raw=true)
+
+### Traversals
+
+For a Linked List, we could enumerate from left to right or right to left. For a Stack, we would enumerate in a Last In, First Out order, and for a Queue in a First In, First Out order. But for a Tree it's not quite as obvious what to do, and that's because Trees have multiple links, potentially at every node. So, when you're at that node, should we go left first, should we go right first? And really you don't need to pick one over the other, you can pick all kinds of varieties.
+
+The basic algorithm is you process the node that you're on, and then you visit the Left node, and then you visit the Right node, and at each of those nodes you follow that same algorithm; process the node you're on; this is the left, this is the right. What varies between the different algorithms is the order in which we do those three steps, and the three common orders that we're going to look at are Pre-Order, In-Order, and Post-Order.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Traversals.png?raw=true)
+
+And this might look somewhat random to you, but what's important is that the enumeration order was stable. We could enumerate this Tree using Pre-Order Traversal a thousand times, and each time it will enumerate in this order.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Pre-Order_Traversal.png?raw=true)
+
+In this case, we've been able to print out the Tree or process the Tree in Sort Order. The Tree is not stored 1, 2, 3, 4, 5, 6, 7, but we're able to process the nodes in that order. So, an In-Order Traversal is very commonly used when you have a Tree and you want to look at the items in Sort Order.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_In-Order_Traversal.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Post-Order_Traversal.png?raw=true)
+
+Both Pre-Order and Post-Order do have well-defined uses. They're often used in mathematical expression evaluation, and they're also quite often used when you're doing evaluation of runtime behaviors in a language. For example, compilers use Trees quite heavily, and Traversals dictate which operations happen in what order, and what operations depend on other operations. So, if you think of this as a dependency graph, what we're saying is, Step 1 and Step 3 have to operate before Step 2, and Step 5 and Step 7 have to operate before Step 6, and then Step 4 is the last one to operate because it's the parent; it's operating on the sum of the operations of all of its children.
+
+### Code
+
+Contains is going to call a helper function called FindWithParent, and the reason we're calling FindWithParent, is so that when we get the value back we also get the parent node back, and this is really important, because remember that when we were doing Remove, Remove needs to know the parent of the node we're removing so that it can properly readjust the links. So, instead of having Contains operate differently than Remove, and instead of re-duplicating that code, I've just pulled out this helper method called FindWithParent, and Contains just ignores the parent, and if the value is not null when it returns, they contain nothing.
+
+show an example that wasn't recursive as well, because as great as recursive algorithms are, they have problems and they have limitations, and if you have a tree that had a million nodes, are you really going to call this recursively in a pathologically bad case potentially a million times? You know, you'd run out of call Stack, you'd crash your application; we don't want to do that, and no production quality Tree should do that. No production quality Tree should use this recursive algorithm.
+
+We make algorithms non-recursive using a Stack.
+
+And also think about why this is a good thing. You know your Stack can hold a million items in it. And that's going to have memory constraints, and you know, there certainly are issues that might happen there, but you're not going to have the call stack problems that the runtime would have if you tried to make a million recursive calls. So, you've shifted the problem from a runtime call Stack depth problem to a memory constraint problem, and that's one that people tend to be able to understand and handle a little more gracefully.
+
+### Sort
+
+And this is a great example of where a Binary Search Tree does pretty well. It's able to take our input, and without a whole lot of effort, keep it in assorted order for us.
+
+## Hash Tables
+

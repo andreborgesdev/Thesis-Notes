@@ -32,6 +32,6 @@ Scoped objects are the same within a request, but different across different req
 
 Singleton objects are the same for every object and every request.
 
-## Problema 
+## Problema
 
 Como cada lógica do BackgroundService corre no scope de uma única instância e podem haver várias instâncias a correr em paralelo temos que arranjar uma forma que se ligue com elas todas para previnir race conditions. Instância ou MS porque 2 MS podem usar o mesmo recurso.
