@@ -210,3 +210,21 @@ A Stack can be used to store these operations in a Last In First Out order, and 
 In the. NET framework, Peek returns you the value at the top of the Stack, and Pop returns you the value at the top of the Stack and removes that item from the Stack, but in the C++ Stack, Pop does not return the item, it simply removes the item, so you can see in the code, when the Stack is allocated and then items are pushed, we don't pop those items off, we look at the top item to retrieve the value, and then we pop the value off.
 
 ## Queue
+
+First In First Out
+
+In its simplest form, a Queue is a collection that returns items in the same order that they were added. You can think of this as a checkout line at a grocery store.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue.png?raw=true)
+
+### Enqueue
+
+It all starts by creating the Queue.
+
+Next we add or Enqueue an item. This is like a shopper getting into the grocery line. What we're going to do is add the value 1 into the Queue.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_Enqueue.png?raw=true)
+
+### Dequeue
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Queue_Dequeue.png?raw=true)
