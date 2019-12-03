@@ -460,6 +460,86 @@ Hashing algorithms have several properties. One is an invariant, and some are id
 
 ### Hashing a String
 
-
+String Hashing algorithms.
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_3.png?raw=true)
+
+We can do that with ASCII, because each ASCII character is 8 bits, one byte. An integer is 32 bits, or 4 bytes, so we can take four ASCII characters, cram them together and say hey, it's an integer.
+
+You take the bytes of those characters and then just cram them together into a 32-bit value. So now let's look at the next four bytes, and they have their own value. Let's add our current Hash value with the new value; now it wraps back around, because we're doing 32-bit math. So, when you add two really big numbers in a 32-bit space they wrap around to a negative value.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_4.png?raw=true)
+
+The. NET framework ships with several, they're good, these are things thought out by mathematicians, by really smart guys over many years that are vetted out by the community, hackers have attacked them for years, a lot of the problems have been found, and solutions are being derived from those. Don't create your own Hashing algorithm.
+
+Pick the right Hash for the job at hand. Look at the characteristics of the problem space that you're working in, and pick the Hashing algorithm that applies best to it.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_5.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Hashing_Code.png?raw=true)
+
+unchecked, and the reason is that in C# when you're doing integer math, if you overflow the integer, it's going to throw an exception, unless you have it in an unchecked block, in which case it's going to wrap around from positive to negative. So, it's just something that we need to do in order to have the integer math work the way we expect.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Hashing_Code_2.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Hashing_Code_3.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Hashing_Code_4.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Hashing_Code_5.png?raw=true)
+
+### Adding Data
+
+we're going to get the hashCode for Jane, and that hashCode is some integer. Now remember, that integer is going to be anything in the integer value space; certainly it's unlikely that it's going to be somewhere between 0 and 8, so this is not our index into the Array, this is the hashCode for the string Jane. The index into the Array we're going to do a modulus of the hashCode with the Array length, and what that's going to do is take that kind of random but stable hashCode, and give us a value from 0 to 8, so we can use that hashCode to figure out the index into the Array. Once we have the index we can assign Jane to it, and now Jane is in the Hash Table.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Adding.png?raw=true)
+
+### Handling Collisions
+
+Collisions are inevitable. Collision is when two distinct items have the same Hash value. So what ends up happening then is those items will be assigned to the same index in the Hash Table, and that's a problem. The end user, it shouldn't know that you had a Collision, it should be a totally transparent thing.
+
+We didn't put Steve where the hashCode said Steve should be. So, next time we come looking for Steve, we need to take that into account.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Open_Addressing.png?raw=true)
+
+We don't know if there's a conflict. The Linked List could be empty, it could have 10 things in it, it could have 100 things in it, we don't know. Chaining allows us to not think about that. And what's nice about Chaining, as opposed to Open Addressing, is that later on when we come looking for Steve, all we have to do is find the index and now find out is Steve in the Linked List?
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Chaining.png?raw=true)
+
+### Growing the Table
+
+The frequency of collisions is going to be a function of two separate issues. The first is how many available slots there are in the Array. If there are only nine items in the array like we've seen our samples so far, you have a more than 10% chance of having a collision on any given insert. And the other side of it is how populated the Array is. And this is known as the Load Factor; it's the ratio of filled slots to empty slots.
+
+So, your Load Factor can determine of your nine available slots how many are free. If there's only one free, you have a less than 10% chance of not colliding. So, once you've hit a certain Load Factor or certain ratio of filled slots, it might be time to grow your Hash Table. You know, to say, alright, we had nine slots, only two were open, let's double the size. Now we'll have 18 slots and we'll have 11 open, and we've cut our chance of having a collision down dramatically. So, the way this works is when we're adding an item. The first thing we have to figure out is, is our current fillFactor or our current Load Factor greater than or equal to whatever maximum we decided. If we have a Hash Table backed by an Array with 100 items, 75 of which are full, our fillFactor is 75%. If our maxFillFactor is 75%, or 70%, or anything lower than 75%, we need to grow the Array.
+
+All we do is we allocate a newArray, and that Array is going to be twice as long as the current Array that we have, and we enumerate over each item in the existing Array, we add the item to the new Array. It's actually pretty straightforward when you think about it, because when you add that item to the new Array it's going to be Hashed into that Array, but this time it's going to take into account that there are twice as many buckets available, so it's very likely that it'll be Hashed to a different location.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Growing.png?raw=true)
+
+### Removing Data
+
+When we implemented the Add algorithm, we had to decide, were we going to Chain Collisions together, or were we going to use Open Addressing to handle Collisions? And that decision impacts the rest of the Hash Table.
+
+We're going to do is remove the item by key. So we stored an object with the key Jane, which represents the value that is the person object for the user Jane.
+
+With Open Addressing, this is the case where, in the case of the Collision, we move the object forward, what we say is let's get the index of where we think that object should be. So, we think Jane should be at index 3. If the value at index 3 is non-null, check if it's Jane. If it is Jane, remove it, but if it's not Jane, let's assume a collision might have occurred, and go check the next index. And now we kind of repeat here. If that next index is non-null, if it's Jane, remove it; if it's not Jane, continue. And we keep on doing this until we either find a null entry or we find Jane. But this does get more complex. If you had multiple collisions that all caused the walk forward, when you remove an item you create a null slot, and now what you have to do is look at every non-null item after that item, and figure out if it was a result of a collision, and if it was you have to re-add it back into the table. And this gets really kind of tedious to maintain.
+
+Chaining, and this is because it's a lot easier to conceptually understand, and the point of this is not to understand all the subtleties of Open Addressing, the point of this is to understand Hash Tables, so let's not focus on Open Addressing, let's focus on Chaining. All you do with Chaining is you get the index for the key that you're looking at; so we get the index for Jane, index 2. And then, we look at index 2. Is there a Linked List in that index? If there is, then look and see if Jane's in it, and if she is, take her out, and if there's not a Linked List there, then Jane's not there, so there's nothing to remove. It's much simpler.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Removing.png?raw=true)
+
+### Finding Data
+
+The Find algorithm in a Hash Table works a lot like the Remove algorithm, and what I mean by that is it depends entirely on what Collision detection algorithm you've chosen, and it has to handle them appropriately.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Finding.png?raw=true)
+
+### Enumerating
+
+As with all the other collection types we've looked at, the ability to Enumerate the Keys and Values in the Hash Table is important, and whether you're enumerating a Linked List, or the Queue or Stack, or even the Binary Tree, you need to be able to do it, and a Hash Table is no different. 
+
+The difference is, with a Hash Table you need to generally have two different enumeration styles, one to enumerate all the keys, and one to enumerate all the values. Just like Remove and Find, the type of Collision detection we're doing here is everything.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Enumerating.png?raw=true)
+
+So, that's where a Hash Table really shines. Key/Value pairs where we're updating the values, and we have a stable key.
