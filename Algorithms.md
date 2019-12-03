@@ -335,6 +335,10 @@ What if we add the value 4 when we already have the value 4 in the Tree? Well, w
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Adding_Data.png?raw=true)
 
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Add.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_AddTo.png?raw=true)
+
 ### Searching Data
 
 Now what we're going to do is see why those data ordering requirements make the Binary Search Tree a really efficient structure for searching for data.
@@ -381,6 +385,10 @@ And now notice we've retained the invariant structure. Everything greater than 7
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Remove_Case_3_2.png?raw=true)
 
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Remove_Code.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Remove_Code_2.png?raw=true)
+
 ### Traversals
 
 For a Linked List, we could enumerate from left to right or right to left. For a Stack, we would enumerate in a Last In, First Out order, and for a Queue in a First In, First Out order. But for a Tree it's not quite as obvious what to do, and that's because Trees have multiple links, potentially at every node. So, when you're at that node, should we go left first, should we go right first? And really you don't need to pick one over the other, you can pick all kinds of varieties.
@@ -401,6 +409,12 @@ In this case, we've been able to print out the Tree or process the Tree in Sort 
 
 Both Pre-Order and Post-Order do have well-defined uses. They're often used in mathematical expression evaluation, and they're also quite often used when you're doing evaluation of runtime behaviors in a language. For example, compilers use Trees quite heavily, and Traversals dictate which operations happen in what order, and what operations depend on other operations. So, if you think of this as a dependency graph, what we're saying is, Step 1 and Step 3 have to operate before Step 2, and Step 5 and Step 7 have to operate before Step 6, and then Step 4 is the last one to operate because it's the parent; it's operating on the sum of the operations of all of its children.
 
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_Pre-Post-Traversal.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_In-Order.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Binary_Search_Tree_In-Order_2.png?raw=true)
+
 ### Code
 
 Contains is going to call a helper function called FindWithParent, and the reason we're calling FindWithParent, is so that when we get the value back we also get the parent node back, and this is really important, because remember that when we were doing Remove, Remove needs to know the parent of the node we're removing so that it can properly readjust the links. So, instead of having Contains operate differently than Remove, and instead of re-duplicating that code, I've just pulled out this helper method called FindWithParent, and Contains just ignores the parent, and if the value is not null when it returns, they contain nothing.
@@ -417,3 +431,35 @@ And this is a great example of where a Binary Search Tree does pretty well. It's
 
 ## Hash Tables
 
+Hash Tables are a type of Data Structure that implements an Associative Array. Associative Arrays provide the Storage of Key/Value pairs into an Array or an Array-like collection, but unlike an Array, the index can be any comparable type, not just an integer. So, besides being comparable, the only other restriction is that an Associative Array generally only contains unique keys. Multiple keys may refer to the same value, but the keys themselves should be unique.
+
+If we want to add an item to the Hash Table, the first thing we need to do is find out what index in the Array the item should go into.
+
+Now, let's say in this example the Hash Table is storing objects that represent people. So, let's try adding a person, Jane, to the Hash Table. What we'll do, is we'll take the object represented by Jane, and we will find the index that the value Jane should be stored at, using Jane's name as the key. So, we have a method called GetIndex that takes a string, and it returns an integer that is the index into the Array where Jane's object should be stored.
+
+What we've seen here is that we're able to add these objects that are people objects into an Array based on their name as the key. So we don't know that Jane is stored at the third Array index, but we know we have a method, GetIndex, that when given the string Jane will return the #2, which is the third index in the zero-indexed Array, and allow us to store or retrieve Jane from that location by name.
+
+It's a way for us to store Key/Value Pairs into an opaque Data Structure that we view as an Associative Array using a key other than the Array index to add and remove the item.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table.png?raw=true)
+
+### Hashing
+
+Hashing is a process that derives a fixed size result from an arbitrary input. what it means by that is that any string of any length when Hashed would return a fixed size, or in this case, a 32-bit integer Hash value.
+
+Fixed size simply means that every input returns a Hash code of the same size or type. The Hash codes we'll be looking at are 32-bit integer values, but some Hashing algorithms return smaller values, and some return much larger values.
+
+Hashing algorithms have several properties. One is an invariant, and some are ideals.
+
+- Stable - a stable algorithm returns the same output given the same input always. So, if you pass in the same string a million times, you should get that same Hash code value back a million times. It's an invariant; every Hashing algorithm has to be stable; if it's not stable it's not useful.
+- Uniform - a uniform Hash is a Hash that is distributed evenly throughout the available range. So, if we're talking about 32-bit integers, that's really 4 billion values, give or take, that we're working with. So, if you pass in a million strings, you'd expect to see, you know, roughly a million values. Now, there are some mathematical rules that basically say, hey look, you're going to have Collisions, you're not going to have perfect uniformity, and it's impossible to have perfect uniformity, because there are certainly more than 4 billion potential strings in the universe. So once you've given more strings than there are potential integer values, you're going to have some inputs that produce the same outputs.
+- Efficient - If the Hashing algorithm isn't efficient either in time or in space, those are things you might not want to use if you're talking about something that needs to be done billions of times in a process. You know, if it takes 3 milliseconds to do something, and you need to do it 3 billion times, that's a long time. If you can cut that down to 3 microseconds, you have saved multiple orders of magnitude off your processing time, and that's something that you need to look at when you're Hashing.
+- Secure - For some problem domains, security is second only to stability, and what a secure Hash says is that given a Hash value, finding an input that could derive to that same value is infeasible. So, if I Hash a string and I get a result back, I don't want to be able to give that Hash code to someone and have them be able to figure out another string or perhaps the original string that led to that Hash value.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_2.png?raw=true)
+
+### Hashing a String
+
+
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_3.png?raw=true)
