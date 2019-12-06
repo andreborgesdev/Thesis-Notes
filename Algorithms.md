@@ -543,3 +543,5 @@ The difference is, with a Hash Table you need to generally have two different en
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Enumerating.png?raw=true)
 
 So, that's where a Hash Table really shines. Key/Value pairs where we're updating the values, and we have a stable key.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Hash_Table_Summary.png?raw=true)
