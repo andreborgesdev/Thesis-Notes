@@ -1,7 +1,7 @@
 # Thesis
 
-- Meter os conceitos do glossário a negrito?
-- Como fazer com as abreviações?
+- Meter os conceitos do glossário a negrito? Nunca
+- Como fazer com as abreviações? A primeira meter por extenso depois meter só a sigla 
 
 ## PASSADAS
 
