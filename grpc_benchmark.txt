@@ -1,0 +1,1090 @@
+Request finished in 2.7235ms 200 application/grpc
+Request finished in 1.9397000000000002ms 200 application/grpc
+Request finished in 4.1174ms 200 application/grpc
+Request finished in 3.3579000000000003ms 200 application/grpc
+Request finished in 2.6924ms 200 application/grpc
+Request finished in 2.5860000000000003ms 200 application/grpc
+Request finished in 2.8466ms 200 application/grpc
+Request finished in 2.8147ms 200 application/grpc
+Request finished in 3.1703ms 200 application/grpc
+Request finished in 3.9989000000000003ms 200 application/grpc
+Request finished in 4.3936ms 200 application/grpc
+Request finished in 2.1331ms 200 application/grpc
+Request finished in 2.6576ms 200 application/grpc
+Request finished in 1.8732000000000002ms 200 application/grpc
+Request finished in 5.2678ms 200 application/grpc
+Request finished in 2.031ms 200 application/grpc
+Request finished in 1.8330000000000002ms 200 application/grpc
+Request finished in 4.1197ms 200 application/grpc
+Request finished in 2.7573000000000003ms 200 application/grpc
+Request finished in 15.1431ms 200 application/grpc
+Request finished in 3.742ms 200 application/grpc
+Request finished in 3.2936ms 200 application/grpc
+Request finished in 4.9157ms 200 application/grpc
+Request finished in 3.8716000000000004ms 200 application/grpc
+Request finished in 4.3806ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 175 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 175 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 175 with length 8 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 175 with length 0 and flags END_STREAM
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000AF": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000AF": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 175 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 175 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 175 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 3.4695ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 177 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 177 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 177 with length 8 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 177 with length 0 and flags END_STREAM
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000B1": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000B1": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 177 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 177 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 177 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 4.8771ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 179 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 179 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 179 with length 8 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 179 with length 0 and flags END_STREAM
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000B3": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000B3": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 179 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 179 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 179 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 8.4799ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 181 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 181 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 181 with length 8 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 181 with length 0 and flags END_STREAM
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000B5": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000B5": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 181 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 181 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 181 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 3.7087000000000003ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 183 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 183 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 183 with length 8 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 183 with length 0 and flags END_STREAM
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000B7": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000B7": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 183 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 183 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 183 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 2.2505ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 185 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 185 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 185 with length 8 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 185 with length 0 and flags END_STREAM
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000B9": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000B9": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 185 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 185 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 185 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 2.8247ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 187 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 187 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 187 with length 8 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 187 with length 0 and flags END_STREAM
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000BB": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000BB": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 187 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 187 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 187 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 3.8842000000000003ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 189 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 189 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 189 with length 8 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 189 with length 0 and flags END_STREAM
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000BD": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000BD": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 189 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 189 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 189 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 2.3515ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 191 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 191 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 191 with length 8 and flags NONE
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 191 with length 0 and flags END_STREAM
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000BF": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000BF": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 191 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 191 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 191 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 2.6933000000000002ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 193 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 193 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 193 with length 8 and flags NONE
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 193 with length 0 and flags END_STREAM
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000C1": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000C1": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 193 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 193 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 193 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 3.7772ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 195 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 195 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 195 with length 8 and flags NONE
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 195 with length 0 and flags END_STREAM
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000C3": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000C3": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 195 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 195 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 195 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 2.9803ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 197 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 197 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 197 with length 8 and flags NONE
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 197 with length 0 and flags END_STREAM
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000C5": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000C5": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 197 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 197 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 197 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 1.7495ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 199 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 199 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 199 with length 8 and flags NONE
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 199 with length 0 and flags END_STREAM
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000C7": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000C7": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 199 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 199 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 199 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 5.2131ms 200 application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received HEADERS frame for stream ID 201 with length 128 and flags END_HEADERS
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 201 with length 5 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 201 with length 8 and flags NONE
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST https://localhost:20001/alive.Alive/Sum application/grpc
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" received DATA frame for stream ID 201 with length 0 and flags END_STREAM
+trce: Microsoft.AspNetCore.HostFiltering.HostFilteringMiddleware[2]
+      All hosts are allowed.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[1]
+      POST requests are not supported
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1001]
+      3 candidate(s) found for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - /alive.Alive/Sum' with route pattern '/alive.Alive/Sum' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented method for alive.Alive' with route pattern 'alive.Alive/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.Matching.DfaMatcher[1005]
+      Endpoint 'gRPC - gRPC - Unimplemented service' with route pattern '{unimplementedService}/{unimplementedMethod}' is valid for the request path '/alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware[1]
+      Request matched endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[9]
+      AuthenticationScheme: Bearer was not authenticated.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Invoking handler 'Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request processing started...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using claims...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching claim 'client_id'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for client identifier using headers...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching header 'X-ClientId'...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Request identity: 'ClientId = anon, HttpVerb = post, Path = /alive.alive/sum'.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Searching for matching rules...
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching general rules.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      Found 0 matching rules. Only rules with distinct periods were considered.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.RateLimit.ClientRateThrottlingHandler[0]
+      No matching rules found.
+trce: Primavera.Hydrogen.AspNetCore.Throttling.ThrottlingMiddleware[0]
+      Request processing ended. Request was not blocked.
+dbug: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[15]
+      Static files was skipped as the request already matched an endpoint.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /alive.Alive/Sum'
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[10]
+      Reading message.
+dbug: Microsoft.AspNetCore.Server.Kestrel[25]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000C9": started reading request body.
+dbug: Microsoft.AspNetCore.Server.Kestrel[26]
+      Connection id "0HLR6HR6TSUGO", Request id "0HLR6HR6TSUGO:000000C9": done reading request body.
+dbug: Grpc.AspNetCore.Server.ServerCallHandler[15]
+      Sending message.
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 201 with length 108 and flags END_HEADERS
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /alive.Alive/Sum'
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending DATA frame for stream ID 201 with length 9 and flags NONE
+trce: Microsoft.AspNetCore.Server.Kestrel[37]
+      Connection id "0HLR6HR6TSUGO" sending HEADERS frame for stream ID 201 with length 15 and flags END_STREAM, END_HEADERS
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 1.9389ms 200 application/grpc
+d
