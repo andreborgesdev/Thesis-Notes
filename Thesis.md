@@ -1,7 +1,9 @@
 # Thesis
 
 - Meter os conceitos do glossário a negrito? Nunca
-- Como fazer com as abreviações? A primeira meter por extenso depois meter só a sigla 
+- Como fazer com as abreviações? A primeira meter por extenso depois meter só a sigla
+- Meter mais conceitos no glossário e ligar os conceitos no texto ao glossario
+- Meter links da referencia das figuras para as figuras
 
 ## PASSADAS
 
