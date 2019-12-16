@@ -127,3 +127,22 @@ The golden rule here really is just to talk. Get dev and ops talking, get manage
 So recapping, a small specialist team, have them work on something small, but take the holistic view, and then when they've done it successfully, seed it throughout the rest of the business. It's a tried and tested approach.
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Organizational_Preparation.png?raw=true)
+
+## Suitable Workloads
+
+### Stateless and Stateful
+
+A question I still get asked about containers is whether or not they can be used for stateful apps, so apps that persist data, or if they're just good for stateless.
+
+Since at least 2018, both Docker and Kubernetes have gotten really good at doing stateful.
+
+a stateful app, or a stateful service, is one that absolutely has to remember stuff. Like if a stateful app stops or crashes or the node it's running on dies, well it abso-freaking-lutely has to come back up without forgetting anything, and a database is the usual example. So when you first fire up a database, it probably looks something like this. So the database app is running in a container here on node 2, and it's using a volume to actually store the data. That's our state. And when it's very first created, it's empty, but as things crack on, it starts storing data. Then, if things go pop, for whatever reason, it doesn't matter, but what does matter is that restarting the service may be over here, it absolutely has to come back up with all the data that was previously stored. If you started here fresh again with no data, well what's the point? So for us, that's stateful. It has to remember stuff. 
+
+Stateless, on the other hand, that's easy. It doesn't remember stuff. So, whatever you started with on day one, maybe a web server with some static content, if it runs for two weeks, at the end of those two weeks, it looks exactly the same as it did on day one, like nothing new has been updated or stored. So if that goes bang, we just bring it back up exactly how it was on the first day two weeks ago.
+
+The general story these days is that Docker and Kubernetes are actually pretty darn good at both. I mean, they're the absolute business when it comes to stateless, but without any trace of stretching the truth, they are really good at stateful as well.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Stateless_Stateful.png?raw=true)
+
+### Low-hanging fruit
+
