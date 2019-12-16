@@ -146,3 +146,39 @@ The general story these days is that Docker and Kubernetes are actually pretty d
 
 ### Low-hanging fruit
 
+Now, I don't think there's any doubt that there's a huge push towards modern cloud native and microservice designs and architectures. The premise is modern businesses need to be agile and a whole bunch of other buzzwords, but buzzwords aside, these are facts. Modern businesses needs to be more reactive and more adaptive than ever, and modern businesses are for the most part the sum of their applications, at least to the extent that crappy old sluggish apps equals crappy old sluggish businesses for the most part.
+
+We need scalable adaptable businesses. The market's demanding it. Well, clouds are providing the infrastructure, and Docker and Kubernetes are providing the tools for building the apps.
+
+Now, you might remember from the module on containers we said that VMware and hypervisors revolutionized IT. The emphasis on IT there maybe rather than apps and businesses. Anyway, they dragged IT from the dark ages of wasted server resources, whereas now we're in the modern world where we're pushing resource utilization like we never pushed it before. Fabulous! Only, the VM thing is a bit of a two-edged sword. On the good side, it let us lift our existing applications from the physical world and drop them straight into the virtualized world, but on the bad side, it let us lift our existing applications from the physical world and drop them straight into the virtualized world.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Workloads.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Workloads_2.png?raw=true)
+
+When we come to containerize our apps, we really should be rethinking and refactoring them. Because like we said, business requirements have changed, and with clouds and containers, we've got everything we need now to build much better apps. And really, I am not talking about just better for IT or for me as a techie. I'm genuinely talking about better for the business and better for the customer, noticeably better.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Workloads_3.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Workloads_4.png?raw=true)
+
+The point is yes, it's the way forward, and yes, we absolutely want to do business on those kinds of terms, but yeah, it takes pain and effort to get there.
+
+### State and Legacy Apps
+
+Like we've said, Docker and Kubernetes are absolutely magic when it comes to stateless workloads, but when we say that, it could be misconstrued to imply, and it often has been, that they are not good for stateful or traditional apps, which, let's be fair, is still the staple of most enterprises. Well, the good news is it is not true that containers can't do stateful or even traditional heritage apps. You know what? It was just that these kinds of workloads are harder, and I think this is the case with just about anything that's new. The easy stuff gets done first. But guess what? Containers are not new anymore. This stuff is growing up fast, and as Docker and Kubernetes have matured, they've added the stuff that's needed for stateful and traditional apps. I mean, on the Docker technology front, volumes and persistent storage, that's come on leaps and bounds. And the same for Kubernetes. It's got a pretty comprehensive persistent storage subsystem. Now, while we're on with Kubernetes, it's also got a ton of other features and objects for stateful services. So, things like the Kubernetes Deployment object, that's great for stateless work, and don't stress if some of the terminology is new here. The point is Kubernetes has, and probably always has had, the stuff for stateless workloads. But on the stateful front, well, as well as things like persistent storage, there's stateful sets and other stuff, all of which are core to Kubernetes. 
+
+The primitives, and the objects, and everything else necessary, integrations into external storage systems, you name it, it's all there so you can do stateful work.
+
+So, Docker and Kubernetes definitely does stateful. Now, on the legacy, or heritage application front, if you're not ready to refactor your apps, but maybe you do want to move to a container platform, well, at least one example, of which there are others, but Docker, Inc. for an age now has had its modernizing traditional apps program where they make it super simple just to lift and shift some of your legacy apps into containers. Now, it's not an end goal in and of itself, but it is a step one in getting onto a modern container platform.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Stateful.png?raw=true)
+
+At the end of the day, technology is always about either the business or the project, and modern businesses and projects need to morph and grow and deal easily with change. So it stands to reason that our technologies need to do the same. Like, if our tech can't adapt and grow, then our businesses have got no chance. No sweat though. We're living in a golden age of technology where we've got all the tools we need. I mean, cloud platforms are providing us with things like infrastructure on demand, while Docker and Kubernetes give us the tools to build agile scalable apps. So, Dynamic infrastructure and tools to build dynamic apps, and I mean entire apps.
+
+They're great for new modern apps, the stateless and stateful bits, and they're also an option for some of your older heritage apps, and they can totally sit alongside VMs and functions within the same app.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Workloads_5.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Workloads_6.png?raw=true)
+
