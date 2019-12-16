@@ -99,3 +99,31 @@ But, as simple as it is, it is absolutely key to moving to a modern cloud-native
 Okay, well, it's all well and good running a single container on your laptop like we've just shown you. It's a whole different world though doing it at scale. And you know what? Scale is where the real world is.
 
 So, to help us with this, there's two things I'll mention here. I mean, there's other options as well, but for us in this course, there's Docker Swarm and there's Kubernetes. Now, Swarm's great, and we cover it in our Getting Started with Docker and Docker Deep Dive courses, but for us now on this course, we're going to focus on Kubernetes because to be honest, it's where most of the action is.
+
+## Preparing for the thrive in a container world
+
+### Individual Preparation
+
+The two things you need to survive and thrive are knowledge and experience.
+
+The point is there are no excuses for not getting your hands filthy with dirt.
+
+Online - play with Docker and Play with kubernetes
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Individual_Preparation.png?raw=true)
+
+### Organizational Preparation
+
+This one is a bit trickier, but it's still very doable. Well, first and foremost is acceptance. Your teams and organizations have to accept that containers are coming.
+
+After that, start thinking and talking about good areas to start using them. Now, generally speaking, developers are going to love them, and a great place for developers to start is continuous integration and continuous delivery. But, keep a tag on things because the chances are they'll like them so much they'll start using them anywhere they can, which is good in the long run, it just needs to be done right.
+
+What a lot of companies do, especially the bigger ones, is they set up some kind of SWAT team, and they give them a new project or some area of the business that's a good fit for a testing ground. So like you section off this area of the business or whatever for a specialized team, and you have them get into the whole thing, Docker, Kubernetes, microservices, you name it, the whole shebang, and you get them to learn it, and you get them to deploy it. And once they've done that maybe once or twice, then you get them to become ambassadors or whatever for the wider company. So like a seeding team. Pull it off in a new project or two, then deliver it to the wider organization.
+
+developers are great, but it's important not to ignore infrastructure and ops, especially I think with Kubernetes because that's arguably got more on the ops front, like deploying and then also managing your apps. And guess what? For this to work in your production environments, the same old production rules apply. I'm thinking things like you're going to want resilient infrastructure to run these new apps on, you're going to want monitoring, you're going to want logging, you're going to need orchestration, and as always, do not leave it until the last minute.
+
+The golden rule here really is just to talk. Get dev and ops talking, get management talking, and then get doing. And like we said, start small, but dream big.
+
+So recapping, a small specialist team, have them work on something small, but take the holistic view, and then when they've done it successfully, seed it throughout the rest of the business. It's a tried and tested approach.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Organizational_Preparation.png?raw=true)
