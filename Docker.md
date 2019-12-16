@@ -182,3 +182,40 @@ They're great for new modern apps, the stateless and stateful bits, and they're 
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Workloads_6.png?raw=true)
 
+## Enterprise and Production Readiness
+
+### Docker
+
+So, at its core, Community Edition and Enterprise Edition are the same. I'm talking about the code that starts and stops containers, that's the same, but bolted on around all of that, Enterprise Edition gets a ton more.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Editions.png?raw=true)
+
+### Kubernetes
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Kubernetes_Production.png?raw=true)
+
+The cloud provider hosts and manages the hard Kubernetes stuff, and we just deploy our apps to it.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Kubernetes_Production_2.png?raw=true)
+
+Kubernetes is a gigantic project, way bigger than Docker. I mean, the scope and breadth of what Kubernetes can do is awesome. Look, and I'm a Brit. I don't use that word very often. But honestly, the scope of what Kubernetes can do truly is awesome, and it's growing all the time, which, okay, is great. But no surprises, it's got its challenges, one of which is just keeping track of features. I mean, some features, they've been around for ages and they're rock solid, whereas others, you probably shouldn't even touch them if your life depends on it. Well, fortunately, to help us keep track of this, every Kubernetes feature goes through a set of well-defined stages.
+
+GA is the gold standard, or the stamp of approval. Anything in GA is here for the long game, and it should be stable.
+
+Alpha, that's scary; beta, that's for the brave and the early adopters; and GA, that's for the rest of us.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Kubernetes_Production_3.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Kubernetes_Production_4.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Kubernetes_Production_5.png?raw=true)
+
+### Container Ecosystem
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Container_Ecosystem.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Container_Ecosystem_2.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Production.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Production_2.png?raw=true)
