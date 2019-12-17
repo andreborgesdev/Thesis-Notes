@@ -1,0 +1,32 @@
+These are the commands used in each lesson.
+
+Installing Docker on Windows Server 2016
+
+	Install-WindowsFeature containers
+	Restart-Computer
+	<create a new folder called 'C:\Program Files\docker\'>
+	<download https://aka.ms/tp5/b/dockerd>
+	<download https://aka.ms/tp5/b/docker>
+	<Add ";C:\Program Files\Docker\" to the system's %PATH% variable> 
+	dockerd --register-service
+	Start-Service Docker
+	docker version
+	docker info
+	Install-PackageProvider ContainerImage -Force   
+	Find-ContainerImage
+	Install-ContainerImage -Name WindowsServerCore
+	Restart-Service docker
+	docker images
+	docker tag <image-ID> windowsservercore:latest
+	docker iamges
+	docker run -it windowsservercore cmd
+	Ctrl-PQ   < To exit a container without killing it
+	docker ps
+	
+Installing Docker on Linux
+
+	For the latest stable Docker build directly from Docker
+		wget -qO- https://get.docker.com/ | sh
+
+	For experimental builds directly from Docker
+		wget -qO- https://experimental.docker.com/ | sh

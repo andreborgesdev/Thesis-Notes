@@ -212,10 +212,40 @@ Alpha, that's scary; beta, that's for the brave and the early adopters; and GA, 
 
 ### Container Ecosystem
 
+Okay, a quick word on the container ecosystem because Docker and Kubernetes, they are by no means the entire picture. If you go to any of the major events like DockerCon or KubeCon, you will see a ton of companies building up around them and filling in the gaps. You know, things like monitoring, and security, and machine learning. Tons of it. There's companies springing up offering just about everything you'd need to augment and enhance your Docker and Kubernetes environments. Now, I'm going to name any specific companies because, well, I guess it wouldn't be fair, but also, some of them just won't last, and that's an important point to consider. I mean, sure Docker and Kubernetes' technologies are going to be here for the long term, but some of the companies in the ecosystem certainly won't, and you're going to want to consider that when you're choosing who to use. But, that said, some of them are solid companies with great products, and you could do worse than checking them out and seeing where they can help.
+
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Container_Ecosystem.png?raw=true)
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Container_Ecosystem_2.png?raw=true)
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Production.png?raw=true)
 
-![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Production_2.png?raw=true)
+## Orchestration
+
+On their own individually, they're not really that special. It's when they come together as a team that the magic happens. But in order to work as a team, they need organizing, dare I say orchestrating?
+
+the team is made up of individuals, and each one's got their own job. Some guys block, some run, some catch, some throw. All totally different things, but when organized and orchestrated, they achieve something with a purpose. Well guess what? The same goes for business applications. Funnily enough, they're also made up from a bunch of individual or small services, at least the modern cloud-native ones are. But when all of these different individual services are orchestrated, they come together as a useful app.
+
+Okay, just about any modern app out there, certainly a production-worthy one, is going to be composed of multiple interlinked services that span multiple hosts, maybe even span multiple datacenters or clouds. And as soon as we start talking about lots of these apps, so each with lots of independent parts and requirements, we can easily be talking hundreds or thousands of containers with really complex architectures. And at scaling complexity like that, believe me, we do not want to be calling the shots manually. So, for starters, we need a game plan, something that describes how everything in the app fits and works together. Things like, well, first of all, just defining the different services that make up the app, but as well, where they should be deployed and at least how they talk to each other. So networking, message queues, APIs, all of that, it all needs describing in the game plan. And please, I'm sure you get this, but make sure that game plan does not just exist inside your own head or the head of one of your employees. It needs to exist in a system, and we'll come to that in a minute. Anyway, once the app or the game plan is described, we need a way of executing on it, and we normally use the terms deploying and managing. And like we just said, it cannot be manually, not when we get to scale. Now, look, I know that this is high level, but what we've talked about there really is at the core of container orchestration. Define our app, how all the parts interact, provision the infrastructure, and then deploy and manage the app. That's orchestration. But it gives us great things. I mean, dependencies like ordered startup, scheduling services next to each other, or maybe some shouldn't be next to each other, so not starting on the same nodes as others or maybe not even in the same zone or whatever. All of this gets documented in the game plan. Then we give the game plan to an orchestrator, usually that's going to be Kubernetes, and we let the orchestrator deploy the app and manage it. So if usage ramps and we need more web servers or whatever, no sweat. Update the game plan, and the orchestrator makes it happen. It really is good stuff. Now, the main orchestrator out there is Kubernetes, and it is the absolute business. I mean, it's pretty much industry standard, and it does just about everything, but it is big, and the learning curve can be steep. But a smaller and simpler product is Docker Swarm. Now, at its core, it essentially does the same thing, deploy and manage microservices apps. It's just got a lot less features and a lot less momentum. And that's not me knocking it. I'm actually a big fan. It's really simple to use. It's just I think Kubernetes has the brighter future, and I think Docker, Inc. 's own adoption and support of Kubernetes is testament to that.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Orchestration.png?raw=true)
+
+A quick refresher then. We talked about how modern apps are generally composed of multiple services. Think web service, search service, catalog, shopping cart, database, all that goodness. And they all work together, and we get a useful application. Well, generally speaking, each of these individual services runs in its own container, and if we need to scale one of the services, we just throw more containers at it, which is important actually. We don't make the container bigger to cope with demand, we just enlist more of the same container, and then the reverse if we need to scale down; we just take away some of the containers.
+
+Things get complicated, really complicated. I mean, lots of services, many of which need to talk to each other, some need to live next to each other, some absolutely can't live next to each other, things need to scale up and down with business needs and the likes, and before you know it, you need a system just to manage everything. Well, that system is your orchestrator, and it's probably going to be Kubernetes.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Orchestration_2.png?raw=true)
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Orchestration_3.png?raw=true)
+
+## Instalation
+
+There literally are loads of ways and places to install Docker. There's Windows, there's Mac, there's obviously Linux, but then there's on-premises, there's cloud infrastructure platforms, there's manual install, scripted, wizard-based. There are flipping loads, and we can't tackle them all here.
+
+There are desktop, server and cloud installs.
+
+For desktop - It's all about getting a small Docker environment up and running locally on your Windows laptop or desktop.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Windows.png?raw=true)
+
+What you're going to end up with at the end of this clip is a fully working single engine Docker environment on your Windows desktop or lappy. But it's really only for test and dev work. You're definitely not going to want to run your production estate on it. I mean, it's only a single engine, remember, so it's not scalable or anything. And you might even find that not all features work straightaway. The guys at Docker are very much taking a stability-first feature-second approach here. Although this is Docker for Windows, what you're going to get here is the Docker Engine, which is just a fancy way of saying Docker or the Docker server, but it's going to be running on Linux. Now, stay with me here. Linux inside of a Hyper-V virtual machine.
