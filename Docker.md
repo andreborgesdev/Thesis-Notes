@@ -263,3 +263,78 @@ The point is, irrespective of platform and operating system, you're going to get
 The docker version is broken into two sections, client and server. At the top here we get the version details of the client bits and pieces, and then down here we get the same for the server or the daemon bits. And if you've been following along with the install lesson, then these are the client and server versions running locally on the machine that you're logged onto. I'm saying this, right, because it is possible to point the Docker client to a remote daemon somewhere on the other end of the network. We're just not doing that here.
 
 With docker info we can see how many containers and images that we've got. Okay, not a lot right now. Then, below that, we've got a wealth of version information. So, generally speaking, right, this is a really good command for seeing how things are on your Docker host.
+
+To run a container we do docker run "name of the container"
+
+First up, right, we typed a command, docker run hello-world. Well, all Docker commands start with the docker keyword, if you will, calling the Docker binary in the background, yeah? We then said run. That's the standard way of saying, hey, Docker, go run me a new container please. And then we said, oh, you know what? Run that container based on the hello-world image. Then we hit Return. The client went and talked to the daemon. The daemon checked if it had a copy of that hello-world image stored locally. It didn't, so that's what we see here with this Unable to find image 'hello-world:latest' locally. That meant the daemon had to go away and pull the image from a place called Docker Hub. More on that in a second. So it pulls the image, which is just a fancy way of saying it grabs its own copy, yeah, and it used that image as a template to create a new container. Now, it's a really simple container, yeah, or image, right? All it did was print a load of text to the screen. Then it exited. So it was a super short-lived container. Prints text to the screen, exits. Meaning, if we run a docker ps command, right, no containers currently running. Though if we whack the -a flag onto the end of that, see how it shows us a container that was running, but is now exited. Well, that's obviously our container that we just ran. And that, right, is a command that you're going to probably use a lot, docker ps, list running containers. Remember, slap -a onto the end, and you can see containers that you have ran, but are now exited. So if we now run docker info again, back up here at the top, yeah, we now see one container, one in a stopped state, and one image. 
+
+docker images shows the local images
+
+## Theory of pulling and running containers
+
+this here is our Docker host. Linux, Windows, on-prem, in the cloud, we don't care, do we? Well, it's running the Docker client and the Docker daemon. You'll often hear that combo referred to as the Docker Engine, though sometimes Docker Engine might just be used to refer to the daemon part. Either way, a standard Docker install gives you the client and the daemon on the same host. Okay, we issued a dead simple docker run command. That was the client component. It interpreted that command and made the appropriate API calls to the daemon. So, right there, we learn that it's obviously the Docker daemon that implements the Docker remote API. Again, sometimes you might hear that called the Docker Engine API. Either way, right, it's a client-server model. Now docker run basically says start me a new container, and then we had to specify the image that we want to use as the template for the container. We said use the hello-world image. So, the daemon checked its local store to see if it already had a copy of it. In our case, it did not. So, what to do? Well, it needs the image in order to start the container. So, what it did was it went and searched for it on Docker Hub. Now, Docker Hub is what we call a Docker image registry, a place, right, where we can store images that we want to use later for containers. Well, Docker Hub's the default registry that the daemon uses, and it's out there on the public internet though other registries totally exist, including secure on-premises registries like Docker Trusted Registry, plus other public and private offerings from third-party ecosystem partners. The point being, the Docker daemon didn't have the required image locally, so it went and searched a registry for it. It found it and pulled it locally. Remember, pull is just Docker lingo for making a local copy. Once the image was pulled locally, the daemon did the heavy lifting needed to create and spin up a brand-new container based, of course, on the configuration inside of the hello-world image. Now, cutting a long story short, that effectively translated into starting a new container that ran a simple command to display some text to the screen, including the words hello world. And as that was the only thing the hello-world image was configured to do, the container did that job, and it exited. That left us with a local copy of the hello-world image in our Docker host's local registry. Again, that's a fancy way of saying on the Docker host's local file system. Plus, we also ended up with a single container in the exited or stopped state.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Containers_Run.png?raw=true)
+
+Just think of images as stopped containers, then, on the flip side, containers as running images.
+
+docker pull to download images
+
+docker rmi to remove images. We can use the name with tag, name or ID
+
+## Container Lifecycle
+
+When you create a container with docker run, it goes into the running state. From there, we can stop it, restart it, stop it, restart it, stop it. I think you get the picture. But also, we can remove it. I mean, look, we can pause them and what have you as well, but as far as we're concerned, containers can be started, stopped, restarted ad infinitum, and ultimately removed. The thing is though, when you stop a container, it's not like it's gone forever, wiped out of existence. No, it's still there, along with its data on the Docker host. So, if and when you restart it, shock, horror, it's going to come back to life with all of its data intact. You see, it's not until you explicitly remove it with a docker rm command that you stand any chance of losing it. So seriously, you literally have to go weapons hot, fire at will, and intentionally wipe it out of existence before you stand a chance of losing it and losing its data. And even then, if its data is in a volume or some other persistent store, that data is not going to go away without a fight. My point being, in a lot of ways, containers are just like VMs. You start them, stop them, restart them. Everything's good. It's not until you explicitly destroy or delete them that you risk losing them.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Containers_Lifecycle.png?raw=true)
+
+docker run -d --name web -o 80:8080 nameoftheimage
+
+-d tells the daemon to start the container in detached mode. Basically, throw it in the background, and don't latch it on to my terminal here.
+
+--name web is to give the name "web" to the container, it must be unique
+
+Then we're mapping some network ports. Now, this particular container, you don't know this, I know that, right, but it's a web server listening on port 8080. Well, we want to be able to access it from port 80 on the Docker host. So, this 80:8080 business is saying map port 80 on the Docker host to port 8080 inside of the container. That means in a second, when we point the web browser to our Docker host on port 80, it's going to get mapped through to port 8080 inside the container, and we should hopefully see a web page.
+
+Top level images are official, the ones with namespaces are not
+
+-it instead of it being detached in the background, I actually want to interact with this one. So I'm saying open its standard in stream and assign it a terminal.
+
+I am now root at this funky hex string. How come? Well, I'm actually in the Bash shell inside the container we just created,
+
+So if we go ping google.com, oh. Vim /etc/hosts. Okay, hang on. What's going on? Well, we're inside of that container, and containers are, for the most part, designed to be super lightweight. So even though this is an Ubuntu container, it's like bare bones, stripped down, furniture removed, and all the fat sucked out. The thing is, right, for the most part, you don't want to be SSHing into containers or anything and doing management stuff from them. I'm just showing you here that it is possible to have interactive containers and to get shell access into them. It's just, it's just not that common.
+
+So containers are very often single process constructs. This particular container, we told it to run /bin/bash, the standard Linux shell if you're a Windows person. And guess what? It is running Bash. It's just that it's running Bash and only Bash. Lightweight remember. But because I'm in that Bash shell right now, if I type exit, then Bash is going to exit. And as that's the only process running on the container, well, that'd leave the container with no running processes, and the container would exit.
+
+And if we go docker PowerShell, okay, there it is still running along with the web container. Now, just real quick, things are a little bit different with Windows Server containers. They've got a bit more going on inside of them. It's just the way that the Windows kernel works. So, Windows containers will likely show more than a single process.
+
+docker stop $(docker ps -aq) - So, the -a here after docker ps says give us all containers, and the q says be quiet, so just return container IDs, effectively giving all container IDs to the docker stop command.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Commands.png?raw=true)
+
+## Swarm Mode
+
+A collection of Docker engines joined into a cluster is called a swarm.
+
+And then the Docker engines running on each node in the swarm is set to be running in swarm mode.
+
+Swarm mode is entirely optional.
+
+But we don't have to, and if we don't, well, that's fine. Docker is just going to run like it always has in standalone mode or single-engine mode. And in that single-engine mode, it is fully backwards compatible. Now let me just repeat that. You do not have to enable swarm mode, and if you don't, then everything is 100% backwards compatible. It just runs like Docker always has. That means if you've got third-party clustering stuff going on, chillax; it's just going to keep working
+
+A swarm itself consists of one or more manager nodes and then one or more worker nodes.
+
+As you might expect, the manager nodes look after the state of the cluster and dispatch tasks and the likes to the worker nodes. And managers are highly available, meaning that if one or two or however many of them go away, the ones remaining will keep the swarm going.
+
+And it works like this behind the scenes. While you can have X number of managers, an odd number is highly recommended, and only one of them, right, is ever the leader or primary. Yeah, all managers maintain the state of the cluster, but if a manager that's not the leader receives a command, it's going to proxy that command over to the leader, and then the leader is going to action it against the swarm. And you can spread managers across availability zones, regions, data centers, whatever suits your high availability needs, but, of course, that's all going to be dependent on the kind of networks that you have. You're going to want reliable networks. Now, I suppose I should mention Raft, because while we can have multiple managers for redundancy and high availability, that naturally gives us complexities over agreeing on the current state, consensus, yeah? Well, Raft is the protocol that's used behind the scenes to bring order to that chaos by ensuring we achieve a distributed consensus. Now, manager nodes are worker nodes as well, so it's totally possible to have a swarm where every node's a manager node, though more than five manager nodes generally isn't thought of as a good idea. The premise here is that the more managers you have, the harder it is to get consensus, or the longer it takes to get consensus. You know what? Just the same way as 2 or 3 people deciding which restaurant to go to is way easier than, I don't know, 20 people.
+
+worker nodes, on the other hand, just accept tasks from managers and execute them. Speaking of which, that leads us nicely to services. So, services are also a new concept introduced with swarm mode, meaning if you're not running in swarm mode, then you can't do services. But we're going to be running swarm mode, so a service, right, is a declarative way of running and scaling tasks. I'm sure that's clear as mud. So, as an example, say you have an app that consists of a back-end store and a front-end web interface. You'd implement that as two services, one service for the back-end store and another for the web front end. Only with services, we tell Docker what we want the app service to look like, and it's now up to Docker to make sure that happens. So let's say we wanted five instances of the container that was running the web front end. You tell Docker that when you define the service.
+
+This is an example command here. So it's telling Docker go create a service called web-fe, and I want 5 instances of the container or task it's going to run. Marvelous. Docker is going to go away and spin up five tasks. Think of tasks as containers for now, okay? And it's going to spread them across all the worker nodes in the cluster. Remember, managers are also workers. But here's the thing, right? It is going to make sure that there are always five of them running. If one of them dies, there's a reconciliation loop running in the background that'll say, okay, I've got four tasks running for this service. Wait up, I should have five, and it's going to start a new one. And that declarative model of expressing desired state and having Docker keep an eye on things making sure that actual state always equals desired state is both new and really powerful.
+
+So, a task is the atomic unit of work assigned to a worker node. We, as developers or sysadmins or whatever, tell the manager about services. Then the manager assigns the work of that service out to worker nodes as tasks. Now, right now, tasks means containers. Okay, a little bit more, so they include metadata about how to initiate the container and some runtime stuff, right, but we can pretty much think of a task as being a container. But, and this is crystal ball time here, right, there's actually nothing technically stopping tasks, including other things like unit kernels or any other unit of work in the future. It's just right now tasks mean containers.
+
+we've got a swarm consisting of a bunch of manager nodes and worker nodes. We define services, declare them to the manager via the standard Docker API, albeit new endpoints in the API. The manager then splits the service into tasks and schedules those tasks against available nodes in the swarm. And then, in order to deploy complex apps consisting of multiple distributed independently scalable services, we've got stacks and distributed application bundles.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Swarm.png?raw=true)
+
