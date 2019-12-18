@@ -338,3 +338,72 @@ we've got a swarm consisting of a bunch of manager nodes and worker nodes. We de
 
 ![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Swarm.png?raw=true)
 
+First up, advertise-addr. This tells Docker no matter how many NICs and IP addresses this machine's got, this is the one to use for swarm-related stuff, like exposing the API. Now, if the machine's only got a single IP, okay, you don't technically need to specify this, but how many production machines are there in the real world that have only got a single IP? Not so many in my experience, so I always use this flag and the next one as well, right, so I recommend you do. In fact, I've had issues just this last week in a setup with multiple IPs where I was trying to do something really quickly, so I skipped the flags. Hmm, just said I always use them.
+
+we give it its IP, and we'll use port 2377. Then I give it the listen-addr as well. This is what the node listens on for swarm manager traffic. And I'll tell it the same address and port. Now, for clarity, the addresses used here, well, obviously they need to be valid addresses on the node, but any other nodes that want to be part of this swarm are going to need to be either on the same network, or you're going to need roots or routes in place on your network so that those other nodes can reach this IP. Now, 2377 is not mandatory. You can actually go with any port that works in your environment. But the native Docker Engine port is 2375, the secured engine port 2376, and I think the guys at Docker are talking to IANA trying to register 2377 as the official swarm port. So, long story short, if 2377 works for you in your environment and you're looking to standardize on something, it's as good a place as any to start.
+
+docker swarm join --token SWMTKN-1-5g7uct1fcmv3xqy7beb257wlvhz1x8h8yuuci0n6jln6uv1fuq-1rm2i6zxomnyr0iu8c4a5p23k 192.168.65.3:2377
+
+This command here is the exact command you need to run on a worker that you want to join to this swarm. If you look at it, we can see it includes a token that without which no machines are going to be joining as a worker.
+
+docker swarm join-token manager
+
+But before that, the instruction here to add a manager, I think it's a bit, well, it's a bit weird, right? So, let's grab it, and we'll run it. And look at that. We get another command that looks pretty much the same as the one above, only it's not, well, the token's not the same. But let's do this first. Same command again, but switch out manager for worker. Right. So, any time you need to know the command and token to join a worker or a manager, these are the commands, docker swarm join-token and then either manager or worker. But look at the last section of each token and see how they're different. When joining a new node to the swarm, the way that the swarm knows whether it should be a manager or a worker totally depends on the token that you give it. One token is for managers to join, the other for workers.
+
+You can only run docker node ls from a manager
+
+Always put the same address
+
+Docker node promote - promotes a worker to a manager
+
+The managers are the ones that have got something in the MANAGER STATUS column at the end.
+
+## Services
+
+Services, one of the major, major constructs introduced in 1.12, and they're all about simplifying and, I don't know, robustifying large-scale production deployments.
+
+Services are all about declarativeness, but also the concepts of desired state and actual state with a form of reconciliation process running in the background doing all the heavy lifting in the background required to make sure that actual match is desired. Anyway, we manage services with a new subcommand.
+
+docker serivce create --name X -p 8080:8080 --replicas Image
+
+docker service ls
+
+docker service ps nameOfService
+
+Every task or container gets its own unique ID. Then, fortunately, it also gets a friendlier name, which is basically the name of the service that it belongs to, and then it gets a task number added to the end. So service name dot task number, or I sometimes hear people call it slot number. Well, then we see an image name. All tasks in a service use the same image, I guess, unless you're doing a rolling update or something, which we're going to see shortly. We can see which node a task's running on. And actually, you might notice ours are nicely balanced across the swarm. Then we see the desired state of the task and the actual state. They match. Okay, the world is a happy place. Then there's a column at the end for errors.
+
+docker service inspect 
+
+This is good for drilling into the config of your service. We can see things like, down here, the image we used, then a bunch of settings that we didn't bother with. But further down here, and I think you'll find this important in the real world, then network config. Now, actually, yeah, I should have said this. It's really easy, and you know what? Most of the time I always do this. I don't know why I didn't do it this time. I usually start my services on their own overlay network just because overlay is the future of networking, right?
+
+I want to see what the app looks like in the real world. Well, when we exposed port 8080 for the service, we basically said any traffic hitting any node in the swarm on that port is going to reach our service.
+
+So all I've done here is I've taken the IP, or actually, I've taken the DNS name, yeah, but I've taken the IP or the DNS of any of the nodes in the swarm. Then I've hit it on port 8080. Now, if you're running something more locally, maybe like on your laptop or a physical server on-prem or something, you just need to hit it on whatever IP or DNS it resolves to. Now, if you're logged on to it locally, you can even hit localhost or 127.0 .0 .1 or whatever, right? As long as you're hitting it on port 8080. Now, the reason for port 8080 here is just because that's the way I built this particular app, and it's how we define the service. So hopefully that's clear.
+
+Now, we're hitting the service on mgr1 here, and we know that mgr1 is running a task or a container for the service. So what would happen if we hit a node in the swarm that's not running a task for the service?
+
+Now this is despite the fact, and let me be really, really clear here, despite the fact that we just hit the one and only node in the swarm that does not have a container running for the service. So we literally can hit any node in the swarm, and we'll always get to our service.
+
+Then, as we saw a second ago, any time you hit any node in the swarm on that port you're going to get your service. But as well as that, you're going to get your traffic load balanced across all of the tasks that form the service. A fully container-aware load balancer that Docker are calling the rooting mesh, or the routing mesh. And you can totally mix it with your traditional load balancer.
+
+But whatever environment you're in, if you've got existing load balancers, you can still have them in the mix. So they would load balance traffic across the nodes in your swarm. Then it would let swarm, as the next layer, use the built-in routing mesh load balancer to further balance the load across the containers in the service.
+
+So we spun up a new service. I asked for five instances of the container in the service. We've got six available workers. So, five of those workers got a container, and one didn't. Boohoo! I also said map port 8080 on the entire swarm to 8080 inside of each container that's forming part of the service. So, up here against the entire swarm, all six nodes, even though one of them isn't even carrying a load for the service at the moment, we get a port mapping, so taking 8080 coming in and mapping it through 8080 on each of these containers. Now, I'm only showing that mapping on the end node here so that the diagram doesn't get even uglier, but effectively, every node gets this mapping here. Now, the details are a little bit beyond this course. I'm hoping at some point I'll get around to doing a swarm mode networking course where we can get into all the lovely details of kernel IPVS, sandboxes, ingress networks, VX LANs, all that good stuff. But for now, what we need to know now is we can hit any of these nodes in the swarm on 8080 and get sent to a container that's running as part of the PS1 service and all nicely load balanced. That means any external load balancers down here, they can balance across all the nodes, even this one here that doesn't have a container for the service, and then the swarm-wide routing mesh container-aware load balancer will balance across all of the containers in the service.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Service.png?raw=true)
+
+## Scaling Services
+
+Actual state, much as desired state, five out of five up here, and then all five down here are running and should be running.
+
+When a node goes down docker gets one back up again and there is no need for manual intervention.
+
+docker service scale nameOfTheService=X
+
+or
+
+docker service update --replicas
+
+If we have, for example, 5 nodes and we scale our app to 10, every node is going to have 2 containers
+
+Newly added nodes don't get existing tasks automatically rebalanced across them.
