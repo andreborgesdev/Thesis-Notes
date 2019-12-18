@@ -406,4 +406,66 @@ docker service update --replicas
 
 If we have, for example, 5 nodes and we scale our app to 10, every node is going to have 2 containers
 
-Newly added nodes don't get existing tasks automatically rebalanced across them.
+Newly added nodes don't get existing tasks automatically rebalanced across them. That might change in the future, right, but today, adding new nodes to the swarm or bringing old ones back does not automatically rebalance existing running tasks.
+
+docker node ps IpOfTheNode - to see the tasks that the node is running
+
+## Rolling Updates
+
+I've personally lost many weekends to monolithic all-hands-on-deck legacy application updates. And you know what? I have no intention of going there again if I can help it. Well, rolling updates, like we're going to see here, when coupled with things like microservice architectures and the likes, let's just say they promise a better future.
+
+docker network create -d overlay ps-net 
+
+docker service inspect --pretty nameOfTheService
+
+But what I'm most interested in for now is this section here, UpdateConfig. Now then, when you initially create a service, so with docker service create, you can set a couple of update-related settings. Now, I'm personally not in the habit of doing it when I create the service. It might work for you doing it that way. Help yourself. But what these options do though is set defaults for the service, meaning, let's say if we were to update the image in this service from v1 to v2, based on the config that I'm showing you on the overlay screen here, it's going to do it two tasks at a time, so roll two tasks to version 2, wait for a 10-minute delay, and then roll another set, wait for 10 minutes, roll another set. Get the picture? But I didn't set any of these when I started the service. So, for me to update it, I can go docker service update, then image because I want to update the image. 
+
+docker service update --image nameOfTheImage:version --update-parallelism 2 --update-delay 10s nameOfTheService
+
+So, docker service update, self-explanatory. We're going to update the image to this version, and then this is how we're going to do it. We're going to update two tasks at a time, so two in parallel. After we've done the first two, we're going to wait for 10 seconds. Then, after 10 seconds is up, we'll update another two, wait another 10 seconds, update another two, essentially steamrollering our way through all 12 tasks that we've currently got in the service. Speaking of which, we've got to tell it our service here.
+
+docker service ps nameOfTheService | grep :version
+
+## Stacks and Bundles
+
+Each of these is a service, and together, those independent services form a working application that hopefully deliver some business value.
+
+Well, that's great and all, except all we've seen so far in this course is how to work with single services. What we're lacking is a way to bundle all of these services together and then package them and deploy them, everything else as a single unit, a bit like, right, if you've used Docker Datacenter or Docker Cloud at all. Like, Docker Cloud, for example, right, it's got this notion of a stack. Sound familiar? And the stack comprises multiple services. Sound familiar again? Well, you feed Docker Cloud a stack file that defines all the services in your app, and then you deploy the whole app from that single file.
+
+nyway, that all sounds great, yeah? Well, can we have some of that for swarm mode please? Well, it is being worked on, and that's what we're going to have a look at now. What we've basically got at the moment with 1.12 in the experimental channel is the concept of a stack, an application, right, made up of multiple services. And we deploy these stacks from what we're calling DAB files, Distributed Application Bundles. All that is, is a new open format for distributing and deploying stacks. Oh, right, and of course, we get a new subcommand for working with them, docker stack.
+
+This is like, well, it's just a lot like how things come together in the real world, a mishmash of just about everything you can think of. Well, five microservices comprising this app, each of which can obviously be managed by its own team, released and updated on its own schedule. Obviously, each can be scaled independently, the whole shebang. 
+
+But what is Docker Compose? Well, for us here, let's just think of it as a Docker tool for running multi-container apps the old way. And these are my words, right? But think of it as for before swarm mode and stacks and DABs came along. Anyway, the first thing to note here is the version tag at the top. For what we're going to be doing, it needs to be two or higher. But then it's defining five services. So the vote service here at the top, we've got how to build it, run it, volumes it needs, ports it needs, everything we need to roll with it. And the same for the other four. The Compose file here defines the entire five-service app.
+
+Marvelous, only Swarm mode can't use it, which is a shame. What swarm mode needs is this compose.yml file converted into DAB format. Shame, I know, but it's not the end of the world. Docker Compose can convert it for us.
+
+Well, now that we've got Docker Compose, we can convert the Compose YAML file into a DAB file, only I've had a few issues doing that. So, here's what I've been doing, right? First up, I'll docker-compose build. Now, that's probably going to take --- oh, ah, right, okay, so that's quick for me because I've done this before on this machine, so all the images upload locally, and I've got a cache built up. For you, if you're following along and using the same app, it's going to take like a minute or two, and you're probably going to see a bunch of red 200s. But don't worry. It will build.
+
+Well, let's have a clean screen, and we'll look at the images that we've got locally. All right, that's all the images we're going to need for the app. Now, the top three are the ones that were built locally with that Compose build we just did, whereas the others, these are official images that are available on Docker Hub. So, next, we want to tag the top three so that I can push them to one of my repos on Docker Hub.
+
+docker tag nameOfTheImage nameOfTheImageDockerHub -to tag the images to the docker hub
+
+docker push nameOfTheImageDockerHub -takes the images that we just tagged and pushes it to the docker hub
+
+Okay, one last thing before we can actually build the DAB file. We'll edit the compose.yml file here, and what we're going to do is we're going to get rid of these build lines here and replace them with image lines pointing to the images that we just pushed to Hub. And actually, while we're on, we'll get shot of these volume instructions here because DAB doesn't work with them, and we've already built.
+
+Being in release candidate in the experimental channel, it needs the images for these three services prebuilt and accessible. It just won't build them on the fly.
+
+docker-compose bundle
+
+Well, it took us a while to get here, but the actual conversion was quick. Well, that's dropped a new DAB file into our working directory here, the .dab extension, yeah, and the file gets named after the directory that you're working in, so we got voteapp.dab dropping, I guess, the dash in the middle there.
+
+docker stack deploy nameOfTheDabFile
+
+docker service ls -all the services must be running with a single task
+
+We can't currently use DAB files to set the number of tasks in the service at deploy time.
+
+Right now DABs and stack deployments don't let us specify published ports at deploy time.
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Swarm_2.png?raw=true)
+
+We started out initializing a shiny new swarm. We spun up a brand new six-node swarm with what I reckon, right, were two ridiculously simple commands. We ran docker swarm init on the first manager, and we ran docker swarm join on the rest of the nodes. Okay. There were some arguments to add to each command, but two insanely simple commands to build a highly available swarm all secured with TLS and key rotation and all that usually painful stuff to do. And if you've tried securing clusters like these in the past manually, you will know what a genuine life-changer this is. But yeah, docker swarm init to create the swarm, then a single docker swarm join on every node that you want to join the party. We said that managers maintain the state of the cluster, and they issue work to workers in the form of tasks. Right now, tasks equals containers. And then, I suppose, speaking of which, we also threw ourselves into services, the new declarative way of running, scaling, and updating groups of containers running off the same image. We use the new docker service create command to declare a desired state for our service, and then we left the rest up to Docker. Seriously, with a single command, I think one of the times we tell Docker to fire up 12 containers and expose them all on a single load-balanced port across the entire swarm. Then in the background, swarm or Docker would fight to maintain that state come rain or shine. Man, brilliant! Then we looked at scaling services. Remember, we can scale up and down, and all with the super simple docker service scale command. Then we saw how docker service update can be used to perform rolling updates across containers or tasks in a service. In the example we did, we took a service from version one of an image and told Docker to go update all the tasks in the service to version two of the image. But we said to roll through the service, updating two tasks at a time and holding off for 10 seconds between each batch. Hallelujah! Then we looked at the icing on the cake, stacks and distributed application bundles, the future of the future for orchestrating entire multiservice apps on Docker infrastructure
+
+![enter image description here](https://github.com/andreborgesdev/Thesis-Notes/blob/master/Images/Docker_Swarm_3.png?raw=true)
