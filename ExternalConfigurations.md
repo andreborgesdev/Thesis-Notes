@@ -1,10 +1,10 @@
 # Configurações externas
 
-Programas modernos, especialmente programas executados na cloud, geralmente têm muitos componentes que são distribuídos por natureza. A difusão das definições de configuração nesses componentes pode levar a erros difíceis de solucionar durante o deployment de uma aplicação. Isto torna-se útil especialmente quando aplicado a uma arquitetura de microsserviços. O facto de termos configurações externas permite-nos alterar as mesmas sem ter que perder tempo a altera-las individualmente para cada serviço e testa-las de forma a ver se estão a funcionar corretamente, sem ter que voltar a dar rebuild e redeploy aos mesmos, torna mais fácil a centralização da gestão e a distribuição de dados de configuração hierárquica para diferentes ambientes e regiões geográficas e permite controlar a disponibilidade dos recursos em tempo real. Para além disto, ao armazenar todas as configurações dos nossos serviços num só lugar prevenimos erros na alteração de um setting transeversal a vários serviços, que pode levar ao funcionamento errado dos mesmos, criando assim um Single Source of Truth para as configurações e tornando a nossa aplicação mais robusta e escalável.
+Programas modernos, especialmente programas executados na cloud, geralmente têm muitos componentes que são distribuídos por natureza. A difusão das definições de configuração nesses componentes pode levar a erros difíceis de solucionar durante o deployment de uma aplicação. Isto torna-se útil especialmente quando aplicado a uma arquitetura de microsserviços. O facto de termos configurações externas permite-nos alterar as mesmas sem ter que perder tempo a altera-las individualmente para cada serviço e testa-las de forma a ver se estão a funcionar corretamente, sem ter que voltar a dar rebuild e redeploy aos mesmos, torna mais fácil a centralização da gestão e a distribuição de dados de configuração hierárquica para diferentes ambientes e regiões geográficas e permite controlar a disponibilidade dos recursos em tempo real. Para além disto, ao armazenar todas as configurações dos nossos serviços num só lugar prevenimos erros na alteração de um setting transversal  a vários serviços, que pode levar ao funcionamento errado dos mesmos, criando assim um Single Source of Truth para as configurações e tornando a nossa aplicação mais robusta e escalável.
 
-Tendo em conta a atual arquitetura dos serviços da Primavera esta abordagem de configurações externas é uma mais valia para a empresa. Um dos casos de uso que pode ser benificiado por esta abordagem é o de existir mais do que um servidor para alguns dos ambientes do processo de release de um serviço e ao alterar a configuração uma vez esta vai ser aplicada a todos os serviços nos diferentes servidores aos quais esta se aplique. Para contextualizar na prática, por exemplo, se um serviço no total tiver 5 servidores ao longo de todo o processo de release será necessário alterar as configurações 5 vezes nas webapps dos diferentes servidores das diferentes etapas de realese. Os benificios continuam a aumentar se multiplicarmos este processo pelos ~20 serviços que a Primavera possui atualmente. Tudo isto aliado à estrutura organizacional funcional das equipas, que leva a que o desenvolvimento e o deployment destes sejam feitos por equipas diferentes, gera o potencial de trazer bastantes benificios e agilizar o processo de atualização das configurações.
+Tendo em conta a atual arquitetura dos serviços da Primavera esta abordagem de configurações externas é uma mais valia para a empresa. Um dos casos de uso que pode ser beneficiado  por esta abordagem é o de existir mais do que um servidor para alguns dos ambientes do processo de release de um serviço e ao alterar a configuração uma vez esta vai ser aplicada a todos os serviços nos diferentes servidores aos quais esta se aplique. Para contextualizar na prática, por exemplo, se um serviço no total tiver 5 servidores ao longo de todo o processo de release será necessário alterar as configurações 5 vezes nas web apps dos diferentes servidores das diferentes etapas de realese. Os benefícios  continuam a aumentar se multiplicarmos este processo pelos ~20 serviços que a Primavera possui atualmente. Tudo isto aliado à estrutura organizacional funcional das equipas, que leva a que o desenvolvimento e o deployment destes sejam feitos por equipas diferentes, gera o potencial de trazer bastantes benefícios  e agilizar o processo de atualização das configurações.
 
-Para além disto se futuramente o deployment e hosting dos serviços passar das webapps para os containers esta abordagem continua a ser válida.
+Para além disto se futuramente o deployment e hosting dos serviços passar das web apps para os containers esta abordagem continua a ser válida.
 
 De forma à implementação ser bem sucedida é preciso criar uma divisão de namespaces para as configurações intuitiva e geral que seja fácil de aplicar aos serviços, a curto e longo prazo, e que espelhe a realidade da arquitetura dos microsserviços. O objetivo é que não seja necessário haver um refactoring futuro dos namespaces das configurações e que se possa manter sempre o mesmo standard. Uma boa prática é desenhar o nome das key em hierarquias, sejam elas baseadas em componentes do serviço ou em regiões de deployment.
 
@@ -12,23 +12,23 @@ De forma à implementação ser bem sucedida é preciso criar uma divisão de na
   AppName:Service1:ApiEndpoint
   AppName:Service2:ApiEndpoint
 
-  ou 
+  ou
 
   AppName:Region1:DbEndpoint
   AppName:Region2:DbEndpoint
 ```
 
-Dentro das configuracões externas, e tendo em conta a realidade organizacional atual da Primavera, existem duas abordagens que se destacam mais para a implementação desta funcionalidade, sendo elas o Serviço App Configuration do Azure e o ConfigMaps dos Kubernetes.
+Dentro das configurações externas, e tendo em conta a realidade organizacional atual da Primavera, existem duas abordagens que se destacam mais para a implementação desta funcionalidade, sendo elas o Serviço App Configuration do Azure e o ConfigMaps dos Kubernetes.
 
 O serviço App Configuration do Azure fornece um serviço para gerir centralmente as configurações de aplicações e as feature flags através de key-value pairs com mais alguns parâmetros configuráveis. É ideal para microsserviços baseados no Serviço Kubernetes do Azure, Azure Service Fabric ou outras aplicações em containers implantados numa ou mais geografias, aplicações serverless, que incluem o Azure Functions ou outras aplicações de computação sem estado controlados por eventos, e pipelines de continuous deployment.
 
-Para mais informações - <https://docs.microsoft.com/en-us/azure/azure-app-configuration/overview>
+Para mais informações - <https://docs.microsoft.com/en-us/Azure/Azure-app-configuration/overview>
 
-Já o ConfigMaps permite desassociar artefatos de configuração do conteúdo da imagem para manter as aplicações em containers portáteis. O conteudo do ConfigMap pode ser injetado como variáveis de ambiente ou mounted files. É possível alcançar isto através da definição individual das configurações, da leitura desta de ficheiros de configuração ou da leitura de diretorias de ficheiros de configuração. Esta abordagem faz mais sentido quando já existe uma maior adoção e maturidade da tecnologia de containers por parte da organização porque a implementação desta torna-se mais simples e eficaz.
+Já o ConfigMaps permite desassociar artefatos de configuração do conteúdo da imagem para manter as aplicações em containers portáteis. O conteúdo  do ConfigMap pode ser injetado como variáveis de ambiente ou mounted files. É possível alcançar isto através da definição individual das configurações, da leitura desta de ficheiros de configuração ou da leitura de diretorias de ficheiros de configuração. Esta abordagem faz mais sentido quando já existe uma maior adoção e maturidade da tecnologia de containers por parte da organização porque a implementação desta torna-se mais simples e eficaz.
 
 Para mais informações - <https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/>
 
-Após uma comparação de ambas as abordagens, e tendo em conta a realidade atual da Primavera tal como o facto de usar a stack tecnológica da Microsoft, usar vários serviços do azure e de ainda não ter implementado a tecnologia de containers, a que se enquadra melhor é a do serviço App Configuration do Azure.
+Após uma comparação de ambas as abordagens, e tendo em conta a realidade atual da Primavera tal como o facto de usar a stack tecnológica da Microsoft, usar vários serviços do Azure e de ainda não ter implementado a tecnologia de containers, a que se enquadra melhor é a do serviço App Configuration do Azure.
 
 Abaixo será descrito o processo de implementação de ambas as abordagens.
 
@@ -36,7 +36,7 @@ Abaixo será descrito o processo de implementação de ambas as abordagens.
 
 ### No portal do Azure
 
-A primeira tarefa é ir ao portal do azure, procurar o serviço "App Configuration" e criar uma nova App Configuration store ou utilizar uma já existente. Caso seja criada uma nova store devemos adicionar algumas configurações. É possível fazer isto manualmente ou através do import das configurações de outras App Configurations stores, App services ou ficheiros de configuração (p.e. appsettings.json). Consequentemente, é também possível fazer o export de configurações de uma App Configurations stores para outras App Configurations stores, App services ou ficheiros de configuração.
+A primeira tarefa é ir ao portal do Azure, procurar o serviço "App Configuration" e criar uma nova App Configuration store ou utilizar uma já existente. Caso seja criada uma nova store devemos adicionar algumas configurações. É possível fazer isto manualmente ou através do import das configurações de outras App Configurations stores, App services ou ficheiros de configuração (p.e. appsettings.json). Consequentemente, é também possível fazer o export de configurações de uma App Configurations stores para outras App Configurations stores, App services ou ficheiros de configuração.
 
 ### Na aplicação
 
@@ -72,7 +72,7 @@ ___Nota: Este comando tem que ser executado na mesma diretoria que o ficheiro .c
 
 Já no código da aplicação, e após este setup inicial, devemos atualizar o método ```CreateWebHostBuilder``` no Program.cs para usar o App Configuration. 
 
-___Nota:___ Dependendo do sitio onde inserimos o método para adicionar o AppConfiguration podemos, ou não, dar overwrite às configurações dos ficheiros locais. Isto acontece caso este método esteja depois da adição dos ficheiros de configuraçãoes local (p.e. config.AddJsonFile($"./GeneratedCode/appsettings.gen.json", optional: false, reloadOnChange: true)) e caso os settings de ambos os lados tenham o mesmo nome.
+___Nota:___ Dependendo do sitio onde inserimos o método para adicionar o AppConfiguration podemos, ou não, dar overwrite às configurações dos ficheiros locais. Isto acontece caso este método esteja depois da adição dos ficheiros de configurações  local (p.e. config.AddJsonFile($"./GeneratedCode/appsettings.gen.json", optional: false, reloadOnChange: true)) e caso os settings de ambos os lados tenham o mesmo nome.
 
 Dentro do método do AppConfiguration, para além de inserirmos a connectionString para conectar à nossa App Configuration store, que neste caso foi criado através do secret manager, podemos também configurar outros métodos tais como o `ConfigureRefresh`. Este especifica as configurações usadas para atualizar os dados de configuração no App Configuration store quando uma operação de atualização é acionada. Porém, para realmente acionar uma operação de atualização, é necessário configurar um middleware de atualização para que a aplicação atualize os dados de configuração quando ocorrer qualquer alteração.
 
@@ -169,15 +169,15 @@ public class HomeController : Controller
 
 Para mais informações, e exemplos de como injetar o valor dinâmico dos settings nas views, consultar:
 
-- <https://docs.microsoft.com/en-us/azure/azure-app-configuration/overview>
-- <https://docs.microsoft.com/en-us/azure/azure-app-configuration/quickstart-aspnet-core-app?tabs=core2x>
-- <https://docs.microsoft.com/en-us/azure/azure-app-configuration/enable-dynamic-configuration-aspnet-core?tabs=core2x>
+- <https://docs.microsoft.com/en-us/Azure/Azure-app-configuration/overview>
+- <https://docs.microsoft.com/en-us/Azure/Azure-app-configuration/quickstart-aspnet-core-app?tabs=core2x>
+- <https://docs.microsoft.com/en-us/Azure/Azure-app-configuration/enable-dynamic-configuration-aspnet-core?tabs=core2x>
 
 ## ConfigMap dos Kubernetes
 
-```csharp
-config.AddJsonFile("config/appsettingsteste.json", optional: true, reloadOnChange: true);
-```
+Como foi especificado na introdução, existem várias formas de abordar os ConfigMaps. Neste exemplo será criado um ficheiro de configuração de forma declarativa que gerará um ficheiro que será montado à aplicação.
+
+Primeiro definimos um ficheiro de configuração do tipo ConfigMap com as configurações que queremos expor no ficheiro output, neste caso appsettings.json.
 
 ```yml
 apiVersion: v1
@@ -185,7 +185,7 @@ kind: ConfigMap
 metadata:
   name: demo-config
 data:
-  appsettingsteste.json: |-
+  appsettings.json: |-
     {
       "Logging": {
         "LogLevel": {
@@ -196,6 +196,8 @@ data:
       }
     }
 ```
+
+Depois é necessário associar o ConfigMap aos pods da aplicação à qual queremos montar o ficheiro. Neste caso o ficheiro será mapeado para a pasta NTR/config.
 
 ```yml
 apiVersion: apps/v1
@@ -216,7 +218,7 @@ spec:
     spec:
       containers:
       - name: ntr
-        image: primaverabss.azurecr.io/dev/ntr:v4
+        image: primaverabss.Azurecr.io/dev/ntr:v4
         ports:
         - containerPort: 80
         volumeMounts:
@@ -230,9 +232,41 @@ spec:
       - name: primaverabss
 ```
 
-Infelizmente, o refresh interno nas alterações no provedor de arquivos principais do .NET não funciona com ficheiros symlink. O mapa de configuração não aciona o refresh da configuração como seria de esperar. Isto parece acontecer porque a descoberta de alterações do .NET core depende da data da última modificação do ficheiro. Como o ficheiro que estamos a monitorizar não foi alterado (a referência do symlink mudou), nenhuma alteração foi detetada.
+No código da nossa aplicação, para ler as configurações do ficheiro gerado temos que especificar o path para onde este será criado (config/appsettings.json).
 
-Até hoje este problema ainda não foi resolvido, porém, por agora, podemos tirar proveito do sistema de configuração extensível do .NET Core e implementar um provedor de configuração baseado em ficheiros que detecta alterações com base no conteúdo do arquivo.
+```csharp
+config.AddJsonFile("config/appsettings.json", optional: true, reloadOnChange: true);
+```
+
+Por fim metemos a nossa aplicação num container e damos deploy aos nossos ficheiros de configuração do kubernetes. Uma vez feito isto podemos confirmar que a operação foi efetuada com sucesso ao aceder a um pod e verificar se o ficheiro foi criado.
+
+```bash
+kubectl exec -it <pod-name> -- bash
+root@demo-deployment-844f6c6546-x786b:/app# cd config/
+root@demo-deployment-844f6c6546-x786b:/app/config# ls -la
+
+rwxrwxrwx 3 root root 4096 Sep 14 09:01 .
+drwxr-xr-x 1 root root 4096 Sep 14 08:47 ..
+drwxr-xr-x 2 root root 4096 Sep 14 09:01 ..2019_09_14_09_01_16.386067924
+lrwxrwxrwx 1 root root   31 Sep 14 09:01 ..data -> ..2019_09_14_09_01_16.386067924
+lrwxrwxrwx 1 root root   53 Sep 14 08:47 appsettings.json -> ..data/appsettings.json
+```
+
+O problema nasce quando fazemos mudanças ao ConfigMap. Depois de dar redeployd a este, eventualmente as mudanças vão ser aplicadas ao ficheiro montado dentro do container, porém a última data de modificação do appsettings.json não muda, apenas o ficheiro referenciado é atualizado.
+
+```bash
+root@demo-deployment-844f6c6546-gzc6j:/app/config# ls -la
+total 12
+drwxrwxrwx 3 root root 4096 Sep 14 09:05 .
+drwxr-xr-x 1 root root 4096 Sep 14 08:47 ..
+drwxr-xr-x 2 root root 4096 Sep 14 09:05 ..2019_09_14_09_05_02.797339427
+lrwxrwxrwx 1 root root   31 Sep 14 09:05 ..data -> ..2019_09_14_09_05_02.797339427
+lrwxrwxrwx 1 root root   53 Sep 14 08:47 appsettings.json -> ..data/appsettings.json
+```
+
+Infelizmente, o refresh interno nas alterações no provider de arquivos principais do .NET não funciona com ficheiros symlink. O mapa de configuração não aciona o refresh da configuração como seria de esperar. Isto parece acontecer porque a descoberta de alterações do .NET core depende da data da última modificação do ficheiro. Como o ficheiro que estamos a monitorizar não foi alterado (a referência do symlink mudou), nenhuma alteração foi detetada.
+
+Até hoje este problema ainda não foi resolvido, porém, por agora, podemos tirar proveito do sistema de configuração extensível do .NET Core e implementar um provedor de configuração baseado em ficheiros que deteta alterações com base no conteúdo do arquivo.
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -240,8 +274,8 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         .ConfigureAppConfiguration(c =>
         {
             c.AddJsonFile(ConfigMapFileProvider.FromRelativePath("config"), 
-                "appsettings.json", 
-                optional: true, 
+                "appsettings.json",
+                optional: true,
                 reloadOnChange: true);
         })
         .UseStartup<Startup>();
